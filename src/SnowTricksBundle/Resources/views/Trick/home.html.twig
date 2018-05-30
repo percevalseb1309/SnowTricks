@@ -1,0 +1,15 @@
+{% extends "@SnowTricks/layout.html.twig" %}
+
+{% block title %}
+  Home - {{ parent() }}
+{% endblock %}
+
+{% block snowtricks_body %}
+	<h1>Home page</h1>
+
+	{% for message in app.session.flashbag.get('notice') %}
+	    <div class="alert alert-success">Message flash : {{ message }}</div>
+	{% endfor %}
+
+	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus veniam, nisi nesciunt, eos officiis necessitatibus ipsa sunt voluptatem reiciendis ullam consectetur nulla aliquid eius esse excepturi accusamus, nihil dolore, illum?</p>
+{% endblock %}

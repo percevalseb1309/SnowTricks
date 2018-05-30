@@ -1,0 +1,49 @@
+{% extends "@SnowTricks/layout.html.twig" %}
+
+{% block title %}
+	Add a Trick - {{ parent() }}
+{% endblock %}
+
+{% block snowtricks_body %}
+	<h1>Add a Trick</h1>
+
+	<div class="col-sm-8 well well-lg">
+		{{ form_start(form) }}
+
+		{{ form_errors(form) }}
+
+		<div class="row">
+			<div class="form-group col-md-6">
+				{{ form_label(form.name, "Trick Name") }}
+				{{ form_errors(form.name) }}
+				{{ form_widget(form.name) }}
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group col-md-12">
+				{{ form_label(form.description, "Trick Description") }}
+				{{ form_errors(form.description) }}
+				{{ form_widget(form.description) }}
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="form-group col-md-4">
+				{{ form_label(form.tricksGroup, "Tricks Group") }}
+				{{ form_errors(form.tricksGroup) }}
+				{{ form_widget(form.tricksGroup) }}
+			</div>
+		</div>		
+
+		<div class="row">
+			<div class="form-group col-md-12">
+				{{ form_widget(form.save, {'attr': {'class': 'btn btn-primary pull-right'}}) }}
+			</div>
+		</div>
+
+		{{ form_rest(form) }}
+
+		{{ form_end(form) }}
+	</div>
+{% endblock %}

@@ -60,10 +60,7 @@ class LoadTrick implements FixtureInterface
             foreach ($tricks as $trickName => $trickDescription) {
                 $trick = new Trick();
                 $trick->setName($trickName);
-                $slug = strtolower(str_replace(' ', '-', $trickName));
-                $trick->setSlug($slug);
                 $trick->setDescription($trickDescription);
-                $trick->setcreated(new \Datetime("now", new \DateTimeZone('Europe/Paris')));
                 $trick->setTricksGroup($tricksGroup);
                 $manager->persist($trick);
             }
