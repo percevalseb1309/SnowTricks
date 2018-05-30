@@ -1,3 +1,7 @@
 snow_tricks_homepage:
     path:     /
-    defaults: { _controller: SnowTricksBundle:Home:index }
+    defaults: { _controller: SnowTricksBundle:Trick:index }
+
+snow_tricks_add:
+    path:     /add
+    defaults: { _controller: SnowTricksBundle:Trick:add }

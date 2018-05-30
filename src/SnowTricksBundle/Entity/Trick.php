@@ -57,7 +57,7 @@ class Trick
     private $updated;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SnowTricksBundle\Entity\TricksGroup")
+     * @ORM\ManyToOne(targetEntity="SnowTricksBundle\Entity\TricksGroup", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $tricksGroup;
@@ -82,7 +82,7 @@ class Trick
      */
     public function __construct()
     {
-        $this->created = new \Datetime();
+        $this->created = new \Datetime("now", new \DateTimeZone('Europe/Paris'));
         $this->pictures = new \Doctrine\Common\Collections\ArrayCollection();
         $this->videos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
@@ -108,6 +108,9 @@ class Trick
     public function setName($name)
     {
         $this->name = $name;
+
+        $slug = SELF::slugify($name);
+        $this->setSlug($slug);
 
         return $this;
     }
@@ -342,5 +345,32 @@ class Trick
     public function getComments()
     {
         return $this->comments;
+    }
+
+    static public function slugify($text)
+    {
+      // replace non letter or digits by -
+      $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+
+      // transliterate
+      $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+      // remove unwanted characters
+      $text = preg_replace('~[^-\w]+~', '', $text);
+
+      // trim
+      $text = trim($text, '-');
+
+      // remove duplicate -
+      $text = preg_replace('~-+~', '-', $text);
+
+      // lowercase
+      $text = strtolower($text);
+
+      if (empty($text)) {
+        return 'n-a';
+      }
+
+      return $text;
     }
 }
