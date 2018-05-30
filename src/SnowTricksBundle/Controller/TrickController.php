@@ -38,5 +38,12 @@ class TrickController extends Controller
         return $this->render('@SnowTricks/Trick/add.html.twig', array(
         	'form' => $form->createView(),
         ));
-    }    
+    } 
+
+    public function trickAction(Trick $trick)
+    {
+        return $this->render('@SnowTricks/Trick/trick.html.twig', array(
+            'trick' => $trick
+        ));
+    }   
 }
