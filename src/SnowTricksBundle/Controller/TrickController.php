@@ -47,7 +47,7 @@ class TrickController extends Controller
         ));
     }       
 
-    public function editAction(Trick $trick, Request $request)
+    public function editAction(Request $request, Trick $trick)
     {
         $form = $this->createForm(TrickType::class, $trick);
 
@@ -62,5 +62,16 @@ class TrickController extends Controller
         return $this->render('@SnowTricks/Trick/edit.html.twig', array(
             'form' => $form->createView()
         ));
+    }      
+
+    public function deleteAction(Request $request, Trick $trick)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($trick);
+        $em->flush();
+
+        $request->getSession()->getFlashBag()->add('notice', 'Trick deleted.');
+
+        return $this->redirectToRoute('snow_tricks_homepage');
     }   
 }
