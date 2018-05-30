@@ -57,7 +57,7 @@ class Trick
     private $updated;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SnowTricksBundle\Entity\TricksGroup", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="SnowTricksBundle\Entity\TricksGroup")
      * @ORM\JoinColumn(nullable=false)
      */
     private $tricksGroup;

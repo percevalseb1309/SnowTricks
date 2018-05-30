@@ -5,3 +5,7 @@ snow_tricks_homepage:
 snow_tricks_add:
     path:     /add
     defaults: { _controller: SnowTricksBundle:Trick:add }
+
+snow_tricks_details:
+    path:     /trick/{slug}
+    defaults: { _controller: OCSnowTricksBundle:Home:trick }
