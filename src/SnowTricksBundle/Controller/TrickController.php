@@ -45,5 +45,22 @@ class TrickController extends Controller
         return $this->render('@SnowTricks/Trick/trick.html.twig', array(
             'trick' => $trick
         ));
+    }       
+
+    public function editAction(Trick $trick, Request $request)
+    {
+        $form = $this->createForm(TrickType::class, $trick);
+
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', $trick->getName().' modified.');
+            return $this->redirectToRoute('snow_tricks_homepage');
+        }
+
+        return $this->render('@SnowTricks/Trick/edit.html.twig', array(
+            'form' => $form->createView()
+        ));
     }   
 }

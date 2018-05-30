@@ -9,3 +9,11 @@ snow_tricks_add:
 snow_tricks_details:
     path:     /trick/{slug}
     defaults: { _controller: SnowTricksBundle:Trick:trick }
+
+snow_tricks_edit:
+    path:     /edit/{slug}
+    defaults: { _controller: SnowTricksBundle:Trick:edit }
+
+snow_tricks_delete:
+    path:     /delete/{slug}
+    defaults: { _controller: SnowTricksBundle:Trick:delete }

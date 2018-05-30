@@ -21,6 +21,10 @@
 			    	</a>
 			      	<div class="caption">
 			        	<a href="{{ path('snow_tricks_details', {'slug': trick.slug}) }}">{{ trick.name }}</a>
+			        	<div class="pull-right">
+				        	<a href="{{ path('snow_tricks_edit', {'slug': trick.slug}) }}"><span class="glyphicon glyphicon-edit"></span></a>
+				        	<a href="{{ path('snow_tricks_delete', {'slug': trick.slug}) }}"><span class="glyphicon glyphicon-trash"></span></a>
+			        	</div>
 			      	</div>
 			  	</div>
 			</div>
