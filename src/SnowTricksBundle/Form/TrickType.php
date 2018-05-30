@@ -29,8 +29,8 @@ class TrickType extends AbstractType
             'multiple'     => false,
             'placeholder'  => 'Choose a Group'
         ))
-        ->add('save', SubmitType::class, array(
-            'label' => 'Add'
+        ->add('submit', SubmitType::class, array(
+            'label' => 'Submit'
         ));
     }
 
