@@ -13,7 +13,12 @@ class TrickController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('@SnowTricks/Trick/home.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $listTricks = $em->getRepository(Trick::class)->findAll();
+
+        return $this->render('@SnowTricks/Trick/home.html.twig', array(
+            'listTricks' => $listTricks
+        ));
     }  
 
     public function addAction(Request $request)
