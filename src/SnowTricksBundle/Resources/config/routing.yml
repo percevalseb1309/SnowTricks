@@ -8,4 +8,4 @@ snow_tricks_add:
 
 snow_tricks_details:
     path:     /trick/{slug}
-    defaults: { _controller: OCSnowTricksBundle:Home:trick }
+    defaults: { _controller: SnowTricksBundle:Trick:trick }
