@@ -3,13 +3,16 @@
 namespace SnowTricksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Trick
  *
  * @ORM\Table(name="trick")
  * @ORM\Entity(repositoryClass="SnowTricksBundle\Repository\TrickRepository")
+ * @UniqueEntity("name")
  */
 class Trick
 {
@@ -26,6 +29,7 @@ class Trick
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @Assert\Length(min=2)
      */
     private $name;
 
@@ -40,6 +44,7 @@ class Trick
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Assert\NotBlank()
      */
     private $description;
 
