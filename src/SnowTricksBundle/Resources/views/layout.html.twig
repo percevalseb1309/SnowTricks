@@ -14,10 +14,10 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container-fluid">
 		 	<div class="navbar-header">
-		    	<a class="navbar-brand" href="{{ path('snow_tricks_homepage') }}">SnowTricks</a>
+		    	<a class="navbar-brand" href="{{ path('trick_list', {'page': 1}) }}">SnowTricks</a>
 		 	</div>
 			<ul class="nav navbar-nav">
-		      	<li class="active"><a href="{{ path('snow_tricks_homepage') }}">Home</a></li>
+		      	<li class="active"><a href="{{ path('trick_list', {'page': 1}) }}">Home</a></li>
 		      	<li class="dropdown">
 		        	<a class="dropdown-toggle" data-toggle="dropdown" href="#">Tricks
 		        	<span class="caret"></span></a>
@@ -27,7 +27,7 @@
 		          		<li><a href="#">Indy</a></li>
 		        	</ul>
 		      	</li>
-		      	<li><a href="{{ path('snow_tricks_add') }}">Add Trick</a></li>
+		      	<li><a href="{{ path('trick_add') }}">Add Trick</a></li>
 		  	</ul>
 		  	<ul class="nav navbar-nav navbar-right">
 		    	<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
