@@ -4,6 +4,7 @@ namespace SnowTricksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * Trick
  *
