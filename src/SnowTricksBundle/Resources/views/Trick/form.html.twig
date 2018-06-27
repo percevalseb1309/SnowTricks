@@ -1,7 +1,16 @@
 <div class="col-md-8 well well-lg">
+
+	{% form_theme form '@SnowTricks/Trick/formTheme.html.twig' 'jquery.collection.html.twig' %}
+
 	{{ form_start(form) }}
 
 	{{ form_errors(form) }}
+
+	<div class="row">
+		<div class="form-group col-md-12">
+			{{ form_row(form.pictures) }}
+		</div>
+	</div>
 
 	<div class="row">
 		<div class="form-group col-md-6">
@@ -25,7 +34,7 @@
 			{{ form_errors(form.tricksGroup) }}
 			{{ form_widget(form.tricksGroup) }}
 		</div>
-	</div>		
+	</div>	
 
 	<div class="row">
 		<div class="form-group col-md-12">
@@ -36,4 +45,5 @@
 	{{ form_rest(form) }}
 
 	{{ form_end(form) }}
+
 </div>

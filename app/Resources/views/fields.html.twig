@@ -1,0 +1,16 @@
+{# {% extends 'form_div_layout.html.twig' %} #}
+
+{% block file_widget %}
+    {% spaceless %}
+
+    {{ block('form_widget') }}
+    {% if image_url is not null %}
+        <div class="col-md-3" style="padding-top:10px;">
+            <div class="thumbnail">
+                <img src="{{ asset(image_url) }}" style="width:100%">
+            </div>
+        </div> 
+    {% endif %}
+
+    {% endspaceless %}
+{% endblock %}
