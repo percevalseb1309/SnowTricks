@@ -30,7 +30,7 @@ class TrickController extends Controller
         $em = $this->getDoctrine()->getManager();
         $listTricks = $em->getRepository(Trick::class)->findAll();
 
-        return $this->render('@SnowTricks/Trick/home.html.twig', array(
+        return $this->render('Trick/home.html.twig', array(
             'listTricks' => $listTricks,
             'page'       => $page,
         ));
@@ -49,7 +49,7 @@ class TrickController extends Controller
             throw new NotFoundHttpException("The trick ". $slug ." does not exist.");
         }
 
-        return $this->render('@SnowTricks/Trick/trick.html.twig', array(
+        return $this->render('Trick/trick.html.twig', array(
             'trick' => $trick
         ));
     } 
@@ -72,7 +72,7 @@ class TrickController extends Controller
             return $this->redirectToRoute('trick_show', array('slug' => $trick->getSlug()));
         }
 
-        return $this->render('@SnowTricks/Trick/add.html.twig', array(
+        return $this->render('Trick/add.html.twig', array(
         	'form' => $form->createView(),
         ));
     } 
@@ -100,7 +100,7 @@ class TrickController extends Controller
             return $this->redirectToRoute('trick_show', array('slug' => $trick->getSlug()));
         }
 
-        return $this->render('@SnowTricks/Trick/edit.html.twig', array(
+        return $this->render('Trick/edit.html.twig', array(
             'trick' => $trick,
             'form'  => $form->createView(),
         ));

@@ -9,6 +9,7 @@
 	{% block stylesheets %}
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	{% endblock %}
+	<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -41,7 +42,7 @@
 		    <div class="alert alert-success">Message flash : {{ message }}</div>
 		{% endfor %}
 		
-		{% block snowtricks_body %}
+		{% block body %}
 		{% endblock %}
 	</div>
 
@@ -53,6 +54,7 @@
 
 	<script src="{{ asset('js/jquery.collection.js') }}"></script>
 
+	{# {% block script %}{% endblock %} #}
 	<script type="text/javascript">
 	    $('.pictures-collection').collection({
 	    	min: 0,
@@ -64,7 +66,5 @@
             add_at_the_end: true,
         });
 	</script>
-
-	{# {% block script %}{% endblock %} #}
 </body>
 </html>
