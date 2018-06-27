@@ -36,7 +36,7 @@ class Comment
     private $created;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SnowTricksBundle\Entity\Trick")
+     * @ORM\ManyToOne(targetEntity="SnowTricksBundle\Entity\Trick", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;

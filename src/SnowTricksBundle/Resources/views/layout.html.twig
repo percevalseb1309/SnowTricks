@@ -37,6 +37,10 @@
 	</nav> 
 	  
 	<div class="container" style="margin-top:50px">
+		{% for message in app.session.flashbag.get('notice') %}
+		    <div class="alert alert-success">Message flash : {{ message }}</div>
+		{% endfor %}
+		
 		{% block snowtricks_body %}
 		{% endblock %}
 	</div>
@@ -44,6 +48,23 @@
 	{% block javascripts %}
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		{# {% block extra_js %}{% endblock %} #}
 	{% endblock %}
+
+	<script src="{{ asset('js/jquery.collection.js') }}"></script>
+
+	<script type="text/javascript">
+	    $('.pictures-collection').collection({
+	    	min: 0,
+            max: 4,
+	    	// add: '<a href="#" class="collection-add btn btn-default" title="Add picture"><span class="glyphicon glyphicon-plus-sign"></span></a>',
+	    	add: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign"></span> Add picture</a>',
+            // position_field_selector: '.my-position',
+            allow_duplicate: false,
+            add_at_the_end: true,
+        });
+	</script>
+
+	{# {% block script %}{% endblock %} #}
 </body>
 </html>

@@ -36,7 +36,7 @@ class Video
     private $created;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SnowTricksBundle\Entity\Trick")
+     * @ORM\ManyToOne(targetEntity="SnowTricksBundle\Entity\Trick", inversedBy="videos")
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
@@ -46,7 +46,7 @@ class Video
      */
     public function __construct()
     {
-        $this->created = new \Datetime();
+        $this->created = new \Datetime("now", new \DateTimeZone('Europe/Paris'));
     }
 
     /**

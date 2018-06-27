@@ -1,6 +1,6 @@
 <?php
 
-namespace SnowTricksBundle\Form;
+namespace SnowTricksBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class TrickType extends AbstractType
@@ -18,7 +19,19 @@ class TrickType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', TextType::class)
+        $builder->add('pictures', CollectionType::class, array(
+            // 'entry_options' => array('label' => false),
+            'label'        => 'Pictures',
+            'entry_type'   => PictureType::class,
+            'allow_add'    => true,
+            'allow_delete' => true,
+            'prototype'    => true,
+            'required'     => false,
+            'by_reference' => false,
+            // 'delete_empty' => true,
+            'attr'         => array('class' => 'pictures-collection'),
+        ))
+        ->add('name', TextType::class)
         ->add('description',TextareaType::class, array(
             'attr' => [ 'rows' => '5'],
         ))
@@ -49,8 +62,7 @@ class TrickType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'snowtricksbundle_trick';
+        // return 'snowtricksbundle_trick';
+        return 'TrickType';
     }
-
-
 }

@@ -6,20 +6,25 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use SnowTricksBundle\Entity\Trick;
-use SnowTricksBundle\Form\TrickType;
+use SnowTricksBundle\Form\Type\TrickType;
+
+use SnowTricksBundle\Entity\Picture;
+use SnowTricksBundle\Form\Type\PictureType;
 
 class TrickController extends Controller
 {
     /**
      * @Route("/{page}", name="trick_list", requirements={"page"="\d+"})
+     * @Method({"GET"})
      */
     public function listAction($page = 1)
     {
         if ($page < 1) {
-            throw new NotFoundHttpException('Page '.$page.' does not exist.');
+            throw new NotFoundHttpException('The page '.$page.' does not exist.');
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -27,15 +32,23 @@ class TrickController extends Controller
 
         return $this->render('@SnowTricks/Trick/home.html.twig', array(
             'listTricks' => $listTricks,
-            'page'       => $page
+            'page'       => $page,
         ));
     }  
 
     /**
-     * @Route("/trick/{slug}", name="trick_show")
+     * @Route("/trick/{slug}", name="trick_show", requirements={"slug"="[a-z0-9-]{2,}"})
+     * @Method({"GET"})
      */
-    public function trickAction(Trick $trick)
+    public function trickAction($slug)
     {
+        $em = $this->getDoctrine()->getManager();
+        $trick = $em->getRepository(Trick::class)->findOneBySlug($slug);
+
+        if (null === $trick) {
+            throw new NotFoundHttpException("The trick ". $slug ." does not exist.");
+        }
+
         return $this->render('@SnowTricks/Trick/trick.html.twig', array(
             'trick' => $trick
         ));
@@ -43,10 +56,11 @@ class TrickController extends Controller
 
     /**
      * @Route("/add", name="trick_add")
+     * @Method({"GET", "POST"})
      */
     public function addAction(Request $request)
     {
-    	$trick = new Trick();
+        $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
@@ -54,8 +68,8 @@ class TrickController extends Controller
             $em->persist($trick);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('notice', 'Trick saved.');
-            return $this->redirectToRoute('snow_tricks_homepage');
+            $request->getSession()->getFlashBag()->add('notice', "Your Trick has been successfully added.");
+            return $this->redirectToRoute('trick_show', array('slug' => $trick->getSlug()));
         }
 
         return $this->render('@SnowTricks/Trick/add.html.twig', array(
@@ -64,36 +78,52 @@ class TrickController extends Controller
     } 
 
     /**
-     * @Route("/edit/{slug}", name="trick_edit")
+     * @Route("/edit/{slug}", name="trick_edit", requirements={"slug"="[a-z0-9-]{2,}"})
+     * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Trick $trick)
+    public function editAction(Request $request, $slug)
     {
+        $em = $this->getDoctrine()->getManager();
+        $trick = $em->getRepository(Trick::class)->findOneBySlug($slug);
+
+        if (null === $trick) {
+            throw new NotFoundHttpException("This trick ". $slug ." doesn't exist !");
+        }
+
         $form = $this->createForm(TrickType::class, $trick);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $trick->setUpdated(new \Datetime("now", new \DateTimeZone('Europe/Paris')));
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('notice', $trick->getName().' modified.');
-            return $this->redirectToRoute('snow_tricks_homepage');
+            $request->getSession()->getFlashBag()->add('notice', "Your Trick has been successfully updated.");
+            return $this->redirectToRoute('trick_show', array('slug' => $trick->getSlug()));
         }
 
         return $this->render('@SnowTricks/Trick/edit.html.twig', array(
-            'form' => $form->createView()
+            'trick' => $trick,
+            'form'  => $form->createView(),
         ));
     } 
 
     /**
-     * @Route("/delete/{slug", name="trick_delete")
+     * @Route("/delete/{slug}", name="trick_delete", requirements={"slug"="[a-z0-9-]{2,}"})
+     * @Method({"GET"})
      */
-    public function deleteAction(Request $request, Trick $trick)
+    public function deleteAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
+        $trick = $em->getRepository(Trick::class)->findOneBySlug($slug);
+
+        if (null === $trick) {
+            throw new NotFoundHttpException("This trick ". $slug ." doesn't exist !");
+        }
+
         $em->remove($trick);
         $em->flush();
 
-        $request->getSession()->getFlashBag()->add('notice', 'Trick deleted.');
+        $request->getSession()->getFlashBag()->add('notice'," Your Trick has been successfully deleted.");
 
-        return $this->redirectToRoute('snow_tricks_homepage');
+        return $this->redirectToRoute('trick_list');
     }   
 }

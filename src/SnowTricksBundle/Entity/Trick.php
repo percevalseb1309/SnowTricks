@@ -4,7 +4,6 @@ namespace SnowTricksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -69,7 +68,8 @@ class Trick
     private $tricksGroup;
 
     /**
-     * @ORM\OneToMany(targetEntity="SnowTricksBundle\Entity\Picture", mappedBy="trick")
+     * @ORM\OneToMany(targetEntity="SnowTricksBundle\Entity\Picture", mappedBy="trick", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
      */
     private $pictures;     
 
@@ -261,6 +261,7 @@ class Trick
     public function addPicture(\SnowTricksBundle\Entity\Picture $picture)
     {
         $this->pictures[] = $picture;
+        $picture->setTrick($this);
 
         return $this;
     }

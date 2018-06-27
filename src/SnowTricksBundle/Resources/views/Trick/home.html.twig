@@ -7,17 +7,17 @@
 {% block snowtricks_body %}
 	<h1>Home page</h1>
 
-	{% for message in app.session.flashbag.get('notice') %}
-	    <div class="alert alert-success">Message flash : {{ message }}</div>
-	{% endfor %}
-
 	{% for row in listTricks|batch(4) %}
 		<div class="row">
 		{% for trick in row %}
 			<div class="col-md-3">
 			  	<div class="thumbnail">
 			    	<a href="{{ path('trick_show', {'slug': trick.slug}) }}">
-				      	<img src="" alt="" style="width:100%">
+			    		{% if trick.pictures is not empty %}
+				      		<img src="{{ asset(trick.pictures|first.webPath) }}" alt="{{ trick.pictures|first.alt }}" style="width:100%">
+				      	{% else %}
+				      		<img src="{{ asset('uploads/pictures/default.jpeg') }}" alt="Image par défaut" style="width:100%">
+			    		{% endif %}
 			    	</a>
 			      	<div class="caption">
 			        	<a href="{{ path('trick_show', {'slug': trick.slug}) }}">{{ trick.name }}</a>

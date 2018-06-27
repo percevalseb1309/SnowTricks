@@ -5,9 +5,37 @@
 {% endblock %}
 
 {% block snowtricks_body %}
-	<h1>{{ trick.name }}</h1>
+	<h1>{{ trick.name|capitalize }}</h1>
 
 	<div class="col-md-8 well well-lg">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="thumbnail">
+					{% if trick.pictures is empty %}
+			      		<img src="{{ asset('uploads/pictures/default.jpeg') }}" alt="Image par défaut" style="width:100%">
+			      	{% else %}
+			 			<img src="{{ asset(trick.pictures|first.webPath) }}" alt="{{ trick.pictures|first.alt }}" style="width:100%">
+		    		{% endif %}
+			 	</div>
+		 	</div>
+		</div>
+
+		{% if trick.pictures is not empty and trick.pictures|length > 1 %}
+			{% for row in trick.pictures|slice(1)|batch(3) %}
+				<div class="row">
+				{% for picture in row %}
+					<div class="col-md-4">
+						<div class="thumbnail">
+							<img src="{{ asset(picture.webPath) }}" alt="{{ picture.alt }}" style="width:100%">
+						</div>
+					</div>
+				{% endfor %}
+				</div>
+			{% endfor %}
+		{% endif %}
+
+		<hr>
+
 		<div class="row">
 			<div class="col-md-12">
 	  		{{ trick.description }}
@@ -17,11 +45,11 @@
 		<hr>
 
 		<div class="row">
-			<div class="col-md-8 center-block" style="float:none;">
-				<i>Tricks Group : {{ trick.tricksGroup.name }}</i> -
-				<i>Created on {{ trick.created|date('d/m/Y') }}</i>
+			<div class="col-md-10 center-block" style="float:none;">
+				<em><strong>Tricks Group : {{ trick.tricksGroup.name }}</strong><em><br>
+				<em>Created on {{ trick.created|date("F jS\, Y \\a\\t g:ia") }}</em>
 				{% if trick.updated is not null %}
-					- <i>Updated on {{ trick.updated|date('d/m/Y') }}</i>
+					- <em>Updated on {{ trick.updated|date("F jS\, Y \\a\\t g:ia") }}</em>
 				{% endif %}
 			</div>
 		</div>
