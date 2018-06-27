@@ -27,11 +27,20 @@ class TrickController extends Controller
             throw new NotFoundHttpException('The page '.$page.' does not exist.');
         }
 
+        $nbPerPage = 12;
+
         $em = $this->getDoctrine()->getManager();
-        $listTricks = $em->getRepository(Trick::class)->findAll();
+        $listTricks = $em->getRepository(Trick::class)->getTricks($page, $nbPerPage);
+
+        $nbPages = ceil(count($listTricks) / $nbPerPage);
+
+        if ($page > $nbPages) {
+            throw new NotFoundHttpException('The page '.$page.' does not exist.');
+        }
 
         return $this->render('Trick/home.html.twig', array(
             'listTricks' => $listTricks,
+            'nbPages'    => $nbPages,
             'page'       => $page,
         ));
     }  

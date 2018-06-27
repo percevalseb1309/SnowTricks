@@ -2,6 +2,8 @@
 
 namespace SnowTricksBundle\Repository;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
+
 /**
  * TrickRepository
  *
@@ -10,4 +12,14 @@ namespace SnowTricksBundle\Repository;
  */
 class TrickRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function getTricks($page, $nbPerPage)
+	{
+		$query = $this->createQueryBuilder('t')
+		  ->getQuery();
+
+		$query->setFirstResult(($page-1) * $nbPerPage)
+			->setMaxResults($nbPerPage);
+
+		return new Paginator($query, true);
+	}
 }
