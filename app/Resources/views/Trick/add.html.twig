@@ -1,0 +1,11 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+	Add a Trick - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<h1>Add a Trick</h1>
+
+	{{ include("Trick/form.html.twig") }}
+{% endblock %}
