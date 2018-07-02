@@ -31,8 +31,13 @@
 		      	<li><a href="{{ path('trick_add') }}">Add Trick</a></li>
 		  	</ul>
 		  	<ul class="nav navbar-nav navbar-right">
-		    	<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-		      	<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+		  		{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+		  			<li><a href="#">Welcome {{ app.user.username }}</a></li>
+		  			<li><a href="{{ path('logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+		  		{% else %}
+			    	<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+			      	<li><a href="{{ path('login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+		  		{% endif %}
 			</ul>
 		</div>
 	</nav> 

@@ -2,3 +2,13 @@ snow_tricks:
     resource: "@SnowTricksBundle/Controller"
     type:     annotation
 
+login:
+    path: /login
+    defaults:
+        _controller: SnowTricksBundle:Security:login
+
+login_check:
+    path: /login_check
+
+logout:
+    path: /logout
