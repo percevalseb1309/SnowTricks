@@ -1,0 +1,51 @@
+{% extends "layout.html.twig" %}
+
+{% block body %}
+	<div class="col-md-8 well well-lg">
+
+	{{ form_start(form) }}
+
+	{{ form_errors(form) }}
+
+	<div class="row">
+		<div class="form-group col-md-6">
+			{{ form_row(form.username) }}
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="form-group col-md-6">
+			{{ form_row(form.email) }}
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="form-group col-md-6">
+			{{ form_row(form.plainPassword.first) }}
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="form-group col-md-6">
+			{{ form_row(form.plainPassword.second) }}
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="form-group col-md-6">
+			{{ form_row(form.termsAccepted) }}
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="form-group col-md-6">
+			{{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary pull-right'}}) }}
+		</div>
+	</div>
+
+	{{ form_rest(form) }}
+
+	{{ form_end(form) }}
+	
+	</div>
+{% endblock %}

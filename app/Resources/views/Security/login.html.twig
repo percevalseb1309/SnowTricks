@@ -1,19 +1,38 @@
 {% extends "layout.html.twig" %}
 
 {% block body %}
+    <div class="col-md-8 well well-lg">
 
-    {% if error %}
-        <div class="alert alert-danger">{{ error.message }}</div>
-    {% endif %}
+        {% if error %}
+            <div class="alert alert-danger alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Warning!</strong> {{ error.message }}
+            </div>
+        {% endif %}
 
-    <form action="{{ path('login_check') }}" method="post">
-        <label for="username">Login :</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}" />
+        <form action="{{ path('login_check') }}" method="post">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label class="control-label required" for="username">Login :</label>
+                    <input type="text" id="username" name="_username" required="required" class="form-control" value="{{ last_username }}" />
+                </div>
+            </div>
 
-        <label for="password">Password :</label>
-        <input type="password" id="password" name="_password" />
-        <br />
-        <input type="submit" value="Connexion" />
-    </form>
 
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label class="control-label required" for="password">Password :</label>
+                    <input type="password" id="password" name="_password" required="required" class="form-control" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <button type="submit" id="TrickType_submit" name="TrickType[submit]" class="btn btn-primary pull-right btn">Connexion</button>
+                    {# <input type="submit" value="Connexion" /> #}
+                </div>
+            </div>
+        </form>
+
+    </div>
 {% endblock %}

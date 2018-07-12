@@ -15,7 +15,7 @@ class TrickRepository extends \Doctrine\ORM\EntityRepository
 	public function getTricks($page, $nbPerPage)
 	{
 		$query = $this->createQueryBuilder('t')
-			->orderBy('t.created', 'ASC')
+			// ->orderBy('t.created', 'ASC')
 		  	->getQuery();
 
 		$query->setFirstResult(($page-1) * $nbPerPage)
