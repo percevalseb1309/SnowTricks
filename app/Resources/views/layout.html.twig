@@ -31,20 +31,23 @@
 		      	<li><a href="{{ path('trick_add') }}">Add Trick</a></li>
 		  	</ul>
 		  	<ul class="nav navbar-nav navbar-right">
-		  		{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-		  			<li><a href="#">Welcome {{ app.user.username }}</a></li>
-		  			<li><a href="{{ path('logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-		  		{% else %}
-			    	<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-			      	<li><a href="{{ path('login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-		  		{% endif %}
+	  		{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+	  			<li><a href="#">Welcome {{ app.user.username }}</a></li>
+	  			<li><a href="{{ path('logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+	  		{% else %}
+		    	<li><a href="{{ path('user_registration') }}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+		      	<li><a href="{{ path('login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+	  		{% endif %}
 			</ul>
 		</div>
 	</nav> 
 	  
 	<div class="container" style="margin-top:50px">
 		{% for message in app.session.flashbag.get('notice') %}
-		    <div class="alert alert-success">Message flash : {{ message }}</div>
+		    <div class="alert alert-success alert-dismissible">
+		      	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		      	<strong>Success!</strong> {{ message }}
+		    </div>
 		{% endfor %}
 		
 		{% block body %}

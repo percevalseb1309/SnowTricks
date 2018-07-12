@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use SnowTricksBundle\Entity\Trick;
@@ -66,6 +67,7 @@ class TrickController extends Controller
     /**
      * @Route("/add", name="trick_add")
      * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_AUTHOR')")
      */
     public function addAction(Request $request)
     {
@@ -89,6 +91,7 @@ class TrickController extends Controller
     /**
      * @Route("/edit/{slug}", name="trick_edit", requirements={"slug"="[a-z0-9-]{2,}"})
      * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_AUTHOR')")
      */
     public function editAction(Request $request, $slug)
     {
@@ -118,6 +121,7 @@ class TrickController extends Controller
     /**
      * @Route("/delete/{slug}", name="trick_delete", requirements={"slug"="[a-z0-9-]{2,}"})
      * @Method({"GET"})
+     * @Security("has_role('ROLE_AUTHOR')")
      */
     public function deleteAction(Request $request, $slug)
     {

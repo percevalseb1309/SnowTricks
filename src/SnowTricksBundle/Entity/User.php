@@ -3,6 +3,8 @@
 namespace SnowTricksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -10,9 +12,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="SnowTricksBundle\Repository\UserRepository")
+ * @UniqueEntity(fields="username", message="Username already taken")
+ * @UniqueEntity(fields="email", message="Email already taken")
  */
-class User implements UserInterface
+class User implements UserInterface/*, \Serializable*/
 {
+
     /**
      * @var int
      *
@@ -25,30 +30,37 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255, unique=true)
-     */
-    private $username;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="email", type="string", length=255, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=255)
+     * @ORM\Column(name="username", type="string", length=255, unique=true)
+     * @Assert\NotBlank()
      */
-    private $password;
+    private $username;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="salt", type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(max=4096)
      */
-    private $salt;
+    private $plainPassword;
+
+    /**
+     * @var string
+     * 
+     * The below length depends on the "algorithm" you use for encoding
+     * the password, but this works well with bcrypt.
+     *
+     * @ORM\Column(name="password", type="string", length=64)
+     */
+    private $password;
 
     /**
      * @var array
@@ -65,37 +77,21 @@ class User implements UserInterface
     private $photoPath;
 
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->roles = array('ROLE_USER');
+    }
+
+    /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set username
-     *
-     * @param string $username
-     *
-     * @return User
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * Get username
-     *
-     * @return string
-     */
-    public function getUsername()
-    {
-        return $this->username;
     }
 
     /**
@@ -123,6 +119,40 @@ class User implements UserInterface
     }
 
     /**
+     * Set username
+     *
+     * @param string $username
+     *
+     * @return User
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
+    }
+
+    /**
      * Set password
      *
      * @param string $password
@@ -144,30 +174,6 @@ class User implements UserInterface
     public function getPassword()
     {
         return $this->password;
-    }
-
-    /**
-     * Set salt
-     *
-     * @param string $salt
-     *
-     * @return User
-     */
-    public function setSalt($salt)
-    {
-        $this->salt = $salt;
-
-        return $this;
-    }
-
-    /**
-     * Get salt
-     *
-     * @return string
-     */
-    public function getSalt()
-    {
-        return $this->salt;
     }
 
     /**
@@ -218,7 +224,39 @@ class User implements UserInterface
         return $this->photoPath;
     }
 
+    public function getSalt()
+    {
+        // The bcrypt and argon2i algorithms don't require a separate salt.
+        // You *may* need a real salt if you choose a different encoder.
+        return null;
+    }
+
     public function eraseCredentials()
     {
+        $this->plainPassword = null;
     }
+
+    /** @see \Serializable::serialize() */
+    /*public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }*/
+
+    /** @see \Serializable::unserialize() */
+    /*public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+        ) = unserialize($serialized, array('allowed_classes' => false));
+    }*/
 }
