@@ -31,6 +31,16 @@ class TrickType extends AbstractType
             // 'delete_empty' => true,
             'attr'         => array('class' => 'pictures-collection'),
         ))
+        ->add('videos', CollectionType::class, array(
+            'label'        => 'Videos',
+            'entry_type'   => VideoType::class,
+            'allow_add'    => true,
+            'allow_delete' => true,
+            'prototype'    => true,
+            'required'     => false,
+            'by_reference' => false,
+            'attr'         => array('class' => 'videos-collection'),
+        ))
         ->add('name', TextType::class)
         ->add('description',TextareaType::class, array(
             'attr' => [ 'rows' => '5'],

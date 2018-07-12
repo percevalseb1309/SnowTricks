@@ -34,6 +34,21 @@
 			{% endfor %}
 		{% endif %}
 
+		{% if trick.videos is not empty %}
+			{% for row in trick.videos|batch(3) %}
+				<div class="row">
+				{% for video in row %}
+					<div class="col-md-4">
+						<div class="thumbnail">
+							{# <img src="{{ video.image() }}" style="width:100%"> #}
+							{{ video.video()|raw }}
+						</div>
+					</div>
+				{% endfor %}
+				</div>
+			{% endfor %}
+		{% endif %}
+
 		<hr>
 
 		<div class="row">

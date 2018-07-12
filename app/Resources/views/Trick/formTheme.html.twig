@@ -17,3 +17,23 @@
         </div>
     </div>
 {% endblock %}
+
+
+{% block VideoType_label %}{% endblock %}
+
+{% block VideoType_widget %}
+    <div class="row">
+        <div class="col-md-9">
+            {{ form_errors(form.url) }}
+            {{ form_widget(form.url) }}
+        </div>
+        <div class="col-md-2">
+            <a href="#" class="collection-up btn btn-default" title="Move picture up"><span class="glyphicon glyphicon-arrow-up"></span></a>
+            <a href="#" class="collection-down btn btn-default" title="Move picture down"><span class="glyphicon glyphicon-arrow-down"></span></a>
+        </div>
+        <div class="col-md-1">
+            <a href="#" class="collection-remove btn btn-default" title="Delete picture"><span class="glyphicon glyphicon-trash"></span></a>
+            {# <a href="#" class="collection-add btn btn-default" title="Add picture"><span class="glyphicon glyphicon-plus-sign"></span></a> #}
+        </div>
+    </div>
+{% endblock %}
