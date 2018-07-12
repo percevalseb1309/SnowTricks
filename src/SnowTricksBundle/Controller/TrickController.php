@@ -16,6 +16,9 @@ use SnowTricksBundle\Form\Type\TrickType;
 use SnowTricksBundle\Entity\Picture;
 use SnowTricksBundle\Form\Type\PictureType;
 
+use SnowTricksBundle\Entity\Video;
+use SnowTricksBundle\Form\Type\VideoType;
+
 class TrickController extends Controller
 {
     /**

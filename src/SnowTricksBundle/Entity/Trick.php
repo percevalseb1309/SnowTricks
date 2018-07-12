@@ -74,7 +74,7 @@ class Trick
     private $pictures;     
 
     /**
-     * @ORM\OneToMany(targetEntity="SnowTricksBundle\Entity\Picture", mappedBy="trick")
+     * @ORM\OneToMany(targetEntity="SnowTricksBundle\Entity\Video", mappedBy="trick", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $videos; 
 
@@ -289,13 +289,14 @@ class Trick
     /**
      * Add video
      *
-     * @param \SnowTricksBundle\Entity\Picture $video
+     * @param \SnowTricksBundle\Entity\Video $video
      *
      * @return Trick
      */
-    public function addVideo(\SnowTricksBundle\Entity\Picture $video)
+    public function addVideo(\SnowTricksBundle\Entity\Video $video)
     {
         $this->videos[] = $video;
+        $video->setTrick($this);
 
         return $this;
     }
@@ -303,9 +304,9 @@ class Trick
     /**
      * Remove video
      *
-     * @param \SnowTricksBundle\Entity\Picture $video
+     * @param \SnowTricksBundle\Entity\Video $video
      */
-    public function removeVideo(\SnowTricksBundle\Entity\Picture $video)
+    public function removeVideo(\SnowTricksBundle\Entity\Video $video)
     {
         $this->videos->removeElement($video);
     }
