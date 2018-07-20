@@ -11,8 +11,7 @@ security:
     providers:
         main:
             entity:
-                class:    SnowTricksBundle\Entity\User
-                property: username
+                class: SnowTricksBundle\Entity\User
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -26,10 +25,12 @@ security:
             provider:  main
             form_login:
                 login_path: login
-                check_path: login_check
+                check_path: login
+                default_target_path: trick_list
+                csrf_token_generator: security.csrf.token_manager
             logout:
-                path:       logout
-                target:     login
+                path: logout
+                target: trick_list
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate

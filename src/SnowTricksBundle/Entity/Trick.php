@@ -75,6 +75,7 @@ class Trick
 
     /**
      * @ORM\OneToMany(targetEntity="SnowTricksBundle\Entity\Video", mappedBy="trick", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
      */
     private $videos; 
 

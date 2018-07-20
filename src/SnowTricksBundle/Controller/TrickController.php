@@ -82,7 +82,7 @@ class TrickController extends Controller
             $em->persist($trick);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('notice', "Your Trick has been successfully added.");
+            $this->addFlash('notice', "Your Trick has been successfully added.");
             return $this->redirectToRoute('trick_show', array('slug' => $trick->getSlug()));
         }
 
@@ -111,7 +111,7 @@ class TrickController extends Controller
             $trick->setUpdated(new \Datetime("now", new \DateTimeZone('Europe/Paris')));
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('notice', "Your Trick has been successfully updated.");
+            $this->addFlash('notice', "Your Trick has been successfully updated.");
             return $this->redirectToRoute('trick_show', array('slug' => $trick->getSlug()));
         }
 
@@ -138,7 +138,7 @@ class TrickController extends Controller
         $em->remove($trick);
         $em->flush();
 
-        $request->getSession()->getFlashBag()->add('notice'," Your Trick has been successfully deleted.");
+        $this->addFlash('notice'," Your Trick has been successfully deleted.");
 
         return $this->redirectToRoute('trick_list');
     }   
