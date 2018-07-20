@@ -9,25 +9,33 @@
 
 	<div class="row">
 		<div class="form-group col-md-6">
-			{{ form_row(form.username) }}
+			{{ form_label(form.username, "Username") }}
+			{{ form_errors(form.username) }}
+			{{ form_widget(form.username) }}
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="form-group col-md-6">
-			{{ form_row(form.email) }}
+			{{ form_label(form.email, "Email") }}
+			{{ form_errors(form.email) }}
+			{{ form_widget(form.email) }}
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="form-group col-md-6">
-			{{ form_row(form.plainPassword.first) }}
+			{{ form_label(form.plainPassword.first, "Password") }}
+			{{ form_errors(form.plainPassword.first) }}
+			{{ form_widget(form.plainPassword.first) }}
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="form-group col-md-6">
-			{{ form_row(form.plainPassword.second) }}
+			{{ form_label(form.plainPassword.second, "Repeat Password") }}
+			{{ form_errors(form.plainPassword.second) }}
+			{{ form_widget(form.plainPassword.second) }}
 		</div>
 	</div>
 
@@ -39,7 +47,7 @@
 
 	<div class="row">
 		<div class="form-group col-md-6">
-			{{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary pull-right'}}) }}
+			{{ form_widget(form.submit, { 'label': 'Create an account', 'attr': {'class': 'btn btn-primary pull-right'}}) }}
 		</div>
 	</div>
 

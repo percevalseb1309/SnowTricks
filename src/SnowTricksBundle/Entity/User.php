@@ -12,10 +12,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="SnowTricksBundle\Repository\UserRepository")
- * @UniqueEntity(fields="username", message="Username already taken")
- * @UniqueEntity(fields="email", message="Email already taken")
+ * @UniqueEntity(fields="username")
+ * @UniqueEntity(fields="email")
  */
-class User implements UserInterface/*, \Serializable*/
+class User implements UserInterface, \Serializable
 {
 
     /**
@@ -48,7 +48,10 @@ class User implements UserInterface/*, \Serializable*/
      * @var string
      *
      * @Assert\NotBlank()
-     * @Assert\Length(max=4096)
+     * @Assert\Length(
+     *      min = 6,
+     *      max = 4096,
+     * )
      */
     private $plainPassword;
 
@@ -226,8 +229,6 @@ class User implements UserInterface/*, \Serializable*/
 
     public function getSalt()
     {
-        // The bcrypt and argon2i algorithms don't require a separate salt.
-        // You *may* need a real salt if you choose a different encoder.
         return null;
     }
 
@@ -236,27 +237,21 @@ class User implements UserInterface/*, \Serializable*/
         $this->plainPassword = null;
     }
 
-    /** @see \Serializable::serialize() */
-    /*public function serialize()
+    public function serialize()
     {
         return serialize(array(
             $this->id,
             $this->username,
             $this->password,
-            // see section on salt below
-            // $this->salt,
         ));
-    }*/
+    }
 
-    /** @see \Serializable::unserialize() */
-    /*public function unserialize($serialized)
+    public function unserialize($serialized)
     {
         list (
             $this->id,
             $this->username,
             $this->password,
-            // see section on salt below
-            // $this->salt
         ) = unserialize($serialized, array('allowed_classes' => false));
-    }*/
+    }
 }
