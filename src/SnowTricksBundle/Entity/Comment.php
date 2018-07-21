@@ -3,6 +3,7 @@
 namespace SnowTricksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Comment
@@ -25,6 +26,7 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\NotBlank()
      */
     private $content;
 
@@ -52,7 +54,7 @@ class Comment
      */
     public function __construct()
     {
-        $this->created = new \Datetime();
+        $this->created = new \Datetime("now", new \DateTimeZone('Europe/Paris'));
     }
 
     /**

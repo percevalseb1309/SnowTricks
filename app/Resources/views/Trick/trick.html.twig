@@ -53,15 +53,13 @@
 
 		<div class="row">
 			<div class="col-md-12">
-	  		{{ trick.description }}
+	  			<p>{{ trick.description }}</p>
 	  		</div>
 		</div>
 
-		<hr>
-
 		<div class="row">
 			<div class="col-md-10 center-block" style="float:none;">
-				<em><strong>Tricks Group : {{ trick.tricksGroup.name }}</strong><em><br>
+				<em><strong>Tricks Group : {{ trick.tricksGroup.name }}</strong></em><br>
 				<em>Created on {{ trick.created|date("F jS\, Y \\a\\t g:ia") }}</em>
 				{% if trick.updated is not null %}
 					- <em>Updated on {{ trick.updated|date("F jS\, Y \\a\\t g:ia") }}</em>
@@ -75,6 +73,47 @@
         	<a href="{{ path('trick_delete', {'slug': trick.slug}) }}"><span class="glyphicon glyphicon-trash"></span></a>
     	</div>
     	{% endif %}
-	</div>
 
+
+	{% if is_granted('ROLE_AUTHOR') %}
+		<hr>
+		{{ form_start(form) }}
+
+		{{ form_errors(form) }}
+
+		<div class="row">
+			<div class="form-group col-md-12">
+				{{ form_errors(form.content) }}
+				{{ form_widget(form.content, {'attr': {'rows': 5}}) }}
+			</div>
+		</div>	
+
+		<div class="row">
+			<div class="form-group col-md-12">
+				{{ form_widget(form.submit, { 'label': 'Leave a comment', 'attr': {'class': 'btn btn-primary pull-right'}}) }}
+			</div>
+		</div>
+
+		{{ form_rest(form) }}
+
+		{{ form_end(form) }}
+	{% endif %}
+
+	{% if trick.comments is not empty %}
+		<hr>
+		{% for comment in trick.comments %}
+		<div class="row">
+			<div class="col-md-12">
+				<p>{{ comment.content }}</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-10 center-block" style="float:none;">
+				<em>Posted on {{ comment.created|date("F jS\, Y \\a\\t g:ia") }} by {{ comment.user.username|capitalize }}</em>
+			</div>
+		</div>
+		{% if not loop.last %}<hr>{% endif %}
+		{% endfor %}
+	{% endif %}
+	</div>
 {% endblock %}

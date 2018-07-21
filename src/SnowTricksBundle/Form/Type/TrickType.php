@@ -43,7 +43,7 @@ class TrickType extends AbstractType
         ))
         ->add('name', TextType::class)
         ->add('description',TextareaType::class, array(
-            'attr' => [ 'rows' => '5'],
+            'attr' => ['rows' => '5'],
         ))
         ->add('tricksGroup', EntityType::class, array(
             'class'        => 'SnowTricksBundle:TricksGroup',
