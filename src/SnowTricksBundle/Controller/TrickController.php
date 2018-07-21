@@ -12,12 +12,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use SnowTricksBundle\Entity\Trick;
 use SnowTricksBundle\Form\Type\TrickType;
-
-use SnowTricksBundle\Entity\Picture;
+/*use SnowTricksBundle\Entity\Picture;
 use SnowTricksBundle\Form\Type\PictureType;
-
 use SnowTricksBundle\Entity\Video;
-use SnowTricksBundle\Form\Type\VideoType;
+use SnowTricksBundle\Form\Type\VideoType;*/
+use SnowTricksBundle\Entity\Comment;
+use SnowTricksBundle\Form\Type\CommentType;
 
 class TrickController extends Controller
 {
@@ -51,9 +51,9 @@ class TrickController extends Controller
 
     /**
      * @Route("/trick/{slug}", name="trick_show", requirements={"slug"="[a-z0-9-]{2,}"})
-     * @Method({"GET"})
+     * @Method({"GET", "POST"})
      */
-    public function trickAction($slug)
+    public function trickAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
         $trick = $em->getRepository(Trick::class)->findOneBySlug($slug);
@@ -62,8 +62,27 @@ class TrickController extends Controller
             throw new NotFoundHttpException("The trick ". $slug ." does not exist.");
         }
 
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            if ( ! $this->isGranted('ROLE_AUTHOR')) {
+                $this->denyAccessUnlessGranted('ROLE_AUTHOR', null, 'Limited access to authors.');
+            }
+            $user = $this->getUser();
+            $comment->setUser($user);
+            $comment->setTrick($trick);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+
+            $this->addFlash('notice', "Your comment has been successfully added.");
+            return $this->redirectToRoute('trick_show', array('slug' => $trick->getSlug()));
+        }
+
         return $this->render('Trick/trick.html.twig', array(
-            'trick' => $trick
+            'trick' => $trick,
+            'form'  => $form->createView(),
         ));
     } 
 
@@ -82,7 +101,7 @@ class TrickController extends Controller
             $em->persist($trick);
             $em->flush();
 
-            $this->addFlash('notice', "Your Trick has been successfully added.");
+            $this->addFlash('notice', "Your trick has been successfully added.");
             return $this->redirectToRoute('trick_show', array('slug' => $trick->getSlug()));
         }
 
@@ -111,12 +130,12 @@ class TrickController extends Controller
             $trick->setUpdated(new \Datetime("now", new \DateTimeZone('Europe/Paris')));
             $em->flush();
 
-            $this->addFlash('notice', "Your Trick has been successfully updated.");
+            $this->addFlash('notice', "Your trick has been successfully updated.");
             return $this->redirectToRoute('trick_show', array('slug' => $trick->getSlug()));
         }
 
         return $this->render('Trick/edit.html.twig', array(
-            'trick' => $trick,
+            // 'trick' => $trick,
             'form'  => $form->createView(),
         ));
     } 
@@ -138,7 +157,7 @@ class TrickController extends Controller
         $em->remove($trick);
         $em->flush();
 
-        $this->addFlash('notice'," Your Trick has been successfully deleted.");
+        $this->addFlash('notice'," Your trick has been successfully deleted.");
 
         return $this->redirectToRoute('trick_list');
     }   
