@@ -8,6 +8,7 @@
 
 	{% block stylesheets %}
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.min.css">
 	{% endblock %}
 	<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
@@ -18,16 +19,7 @@
 		    	<a class="navbar-brand" href="{{ path('trick_list', {'page': 1}) }}">SnowTricks</a>
 		 	</div>
 			<ul class="nav navbar-nav">
-		      	<li class="active"><a href="{{ path('trick_list', {'page': 1}) }}">Home</a></li>
-		      	<li class="dropdown">
-		        	<a class="dropdown-toggle" data-toggle="dropdown" href="#">Tricks
-		        	<span class="caret"></span></a>
-		        	<ul class="dropdown-menu">
-		          		<li><a href="#">Mute</a></li>
-		         		<li><a href="#">Sad</a></li>
-		          		<li><a href="#">Indy</a></li>
-		        	</ul>
-		      	</li>
+		      	<li><a href="{{ path('trick_list', {'page': 1}) }}">Home</a></li>
 		      	<li><a href="{{ path('trick_add') }}">Add Trick</a></li>
 		  	</ul>
 		  	<ul class="nav navbar-nav navbar-right">
@@ -57,6 +49,7 @@
 	{% block javascripts %}
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 		{# {% block extra_js %}{% endblock %} #}
 	{% endblock %}
 
@@ -80,6 +73,35 @@
 	    	add: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign"></span> Add video</a>',
             allow_duplicate: false,
             add_at_the_end: true,
+        });
+
+        $(function() {
+        	$("#dialog").hide();
+          	$(".delete-trick").on("click", function(event) {
+          		event.preventDefault(); 
+
+            	var name = $(this).data("name");
+            	var href = $(this).attr("href");
+
+            	$("#dialog form").attr("action", href);
+
+            	$("#dialog").dialog({
+            	  	resizable: false,
+            	  	height: "auto",
+            	  	width: 400,
+            	  	modal: true,
+            	  	title: "Delete trick \"" + name + "\" ?",
+            	  	buttons: {
+            	    	"Delete trick": function() {
+            	      		$(this).dialog("close");
+            	      		$("form").unbind("submit").submit();
+            	    	},
+            	    	Cancel: function() {
+            	      		$(this).dialog("close");
+            	    	}
+            	  	}
+            	});
+          	});
         });
 	</script>
 </body>

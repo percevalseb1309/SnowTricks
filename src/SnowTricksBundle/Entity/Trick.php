@@ -80,7 +80,7 @@ class Trick
     private $videos; 
 
     /**
-     * @ORM\OneToMany(targetEntity="SnowTricksBundle\Entity\Comment", mappedBy="trick")
+     * @ORM\OneToMany(targetEntity="SnowTricksBundle\Entity\Comment", mappedBy="trick", cascade={"persist", "remove"})
      */
     private $comments;
 

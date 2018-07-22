@@ -24,7 +24,7 @@
 			        	{% if is_granted('ROLE_AUTHOR') %}
 			        	<div class="pull-right">
 				        	<a href="{{ path('trick_edit', {'slug': trick.slug}) }}"><span class="glyphicon glyphicon-edit"></span></a>
-				        	<a href="{{ path('trick_delete', {'slug': trick.slug}) }}"><span class="glyphicon glyphicon-trash"></span></a>
+				        	<a class="delete-trick" data-name="{{ trick.name }}" href="{{ path('trick_delete', {'slug': trick.slug}) }}"><span class="glyphicon glyphicon-trash"></span></a>
 			        	</div>
 			        	{% endif %}
 			      	</div>
@@ -43,4 +43,6 @@
 		  	{% endfor %}
 		</ul>
 	</div>
+
+	{{ include("Trick/delete.html.twig") }}
 {% endblock %}
