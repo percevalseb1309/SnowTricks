@@ -1,11 +1,11 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-	Update a Trick - {{ parent() }}
+	Update {{ trick.name }} - {{ parent() }}
 {% endblock %}
 
 {% block body %}
-	<h1>Update a Trick</h1>
+	<h1>Update {{ trick.name }}</h1>
 
 	{{ include("Trick/form.html.twig") }}
 {% endblock %}

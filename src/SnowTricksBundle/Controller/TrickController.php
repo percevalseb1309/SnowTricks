@@ -135,14 +135,14 @@ class TrickController extends Controller
         }
 
         return $this->render('Trick/edit.html.twig', array(
-            // 'trick' => $trick,
+            'trick' => $trick,
             'form'  => $form->createView(),
         ));
     } 
 
     /**
      * @Route("/delete/{slug}", name="trick_delete", requirements={"slug"="[a-z0-9-]{2,}"})
-     * @Method({"GET"})
+     * @Method({"GET", "POST"})
      * @Security("has_role('ROLE_AUTHOR')")
      */
     public function deleteAction(Request $request, $slug)
@@ -154,10 +154,16 @@ class TrickController extends Controller
             throw new NotFoundHttpException("This trick ". $slug ." doesn't exist !");
         }
 
+        $submittedToken = $request->request->get('token');
+        if ( ! $this->isCsrfTokenValid('delete-item', $submittedToken)) {
+            $this->addFlash('notice', "The CSRF token is invalid. Please try to repeat the action");
+            $referer = $request->headers->get('referer');
+            return $this->redirect($referer);
+        } 
+
         $em->remove($trick);
         $em->flush();
-
-        $this->addFlash('notice'," Your trick has been successfully deleted.");
+        $this->addFlash('notice', "Your trick has been successfully deleted.");
 
         return $this->redirectToRoute('trick_list');
     }   
