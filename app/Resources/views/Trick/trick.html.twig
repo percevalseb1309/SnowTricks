@@ -15,6 +15,7 @@
 			      		<img src="{{ asset('uploads/pictures/default.jpeg') }}" alt="Image par défaut" style="width:100%">
 			      	{% else %}
 			 			<img src="{{ asset(trick.pictures|first.webPath) }}" alt="{{ trick.pictures|first.alt }}" style="width:100%">
+			 			{# <img src="{{ asset('uploads/pictures/' ~ trick.pictures|first.file) }}" alt="{{ trick.pictures|first.alt }}" style="width:100%"> #}
 		    		{% endif %}
 			 	</div>
 		 	</div>
@@ -27,6 +28,7 @@
 					<div class="col-md-4">
 						<div class="thumbnail">
 							<img src="{{ asset(picture.webPath) }}" alt="{{ picture.alt }}" style="width:100%">
+							{# <img src="{{ asset('uploads/pictures/' ~ picture.file) }}" alt="{{ picture.alt }}" style="width:100%"> #}
 						</div>
 					</div>
 				{% endfor %}

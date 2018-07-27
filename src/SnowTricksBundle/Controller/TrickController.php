@@ -12,10 +12,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use SnowTricksBundle\Entity\Trick;
 use SnowTricksBundle\Form\Type\TrickType;
-/*use SnowTricksBundle\Entity\Picture;
-use SnowTricksBundle\Form\Type\PictureType;
-use SnowTricksBundle\Entity\Video;
-use SnowTricksBundle\Form\Type\VideoType;*/
 use SnowTricksBundle\Entity\Comment;
 use SnowTricksBundle\Form\Type\CommentType;
 

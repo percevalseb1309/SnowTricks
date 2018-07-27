@@ -20,7 +20,9 @@
 		 	</div>
 			<ul class="nav navbar-nav">
 		      	<li><a href="{{ path('trick_list', {'page': 1}) }}">Home</a></li>
+		    {% if is_granted('ROLE_AUTHOR') %}
 		      	<li><a href="{{ path('trick_add') }}">Add Trick</a></li>
+		    {% endif %}
 		  	</ul>
 		  	<ul class="nav navbar-nav navbar-right">
 	  		{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
