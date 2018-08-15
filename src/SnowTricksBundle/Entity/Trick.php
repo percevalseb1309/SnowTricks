@@ -81,6 +81,7 @@ class Trick
 
     /**
      * @ORM\OneToMany(targetEntity="SnowTricksBundle\Entity\Comment", mappedBy="trick", cascade={"persist", "remove"})
+     * @Assert\Valid()
      */
     private $comments;
 
@@ -332,6 +333,7 @@ class Trick
     public function addComment(\SnowTricksBundle\Entity\Comment $comment)
     {
         $this->comments[] = $comment;
+        $comment->setTrick($this);
 
         return $this;
     }

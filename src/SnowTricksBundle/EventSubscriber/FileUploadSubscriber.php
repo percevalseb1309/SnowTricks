@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use SnowTricksBundle\Entity\Picture;
+use SnowTricksBundle\Entity\Avatar;
 use SnowTricksBundle\Service\FileUploader;
 use Symfony\Component\HttpFoundation\File\File;
 
@@ -32,6 +33,10 @@ class FileUploadSubscriber implements EventSubscriber
     public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
+
+        if ( ! $entity instanceof Picture && ! $entity instanceof Avatar) {
+            return;
+        }
 
         $this->uploadFile($entity);
     }
@@ -68,7 +73,7 @@ class FileUploadSubscriber implements EventSubscriber
 
     private function uploadFile($entity)
     {
-        if ( ! $entity instanceof Picture) {
+        if ( ! $entity instanceof Picture && ! $entity instanceof Avatar) {
             return;
         }
 
@@ -86,7 +91,7 @@ class FileUploadSubscriber implements EventSubscriber
     {
         $entity = $args->getEntity();
 
-        if ( ! $entity instanceof Picture) {
+        if ( ! $entity instanceof Picture && ! $entity instanceof Avatar) {
             return;
         }
 
@@ -99,13 +104,15 @@ class FileUploadSubscriber implements EventSubscriber
     {
         $entity = $args->getEntity();
 
-        if ( ! $entity instanceof Picture) {
+        if ( ! $entity instanceof Picture && ! $entity instanceof Avatar) {
             return;
         }
 
         if ($fileName = $entity->getFile()) {
-            $entity->setWebPath('uploads/pictures/'.$fileName);
-            $entity->setFile(new File($this->uploader->getTargetDirectory().'/'.$fileName));
+            $entity->setWebPath($this->uploader->getTargetWebPath().'/'.$fileName);
+            if ($entity instanceof Picture) {
+                $entity->setFile(new File($this->uploader->getTargetDirectory().'/'.$fileName));
+            }
         }
     }
 }

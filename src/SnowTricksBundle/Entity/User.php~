@@ -73,6 +73,13 @@ class User implements UserInterface, \Serializable
     private $roles;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="photo_path", type="string", length=255, nullable=true)
+     */
+    private $photoPath;
+
+    /**
      * @ORM\OneToOne(targetEntity="SnowTricksBundle\Entity\Avatar", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      */
@@ -203,28 +210,27 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Set avatar
+     * Set photoPath
      *
-     * @param \SnowTricksBundle\Entity\Avatar $avatar
+     * @param string $photoPath
      *
      * @return User
      */
-    public function setAvatar(\SnowTricksBundle\Entity\Avatar $avatar = null)
+    public function setPhotoPath($photoPath)
     {
-        $this->avatar = $avatar;
-        $avatar->setUser($this);
+        $this->photoPath = $photoPath;
 
         return $this;
     }
 
     /**
-     * Get avatar
+     * Get photoPath
      *
-     * @return \SnowTricksBundle\Entity\Avatar
+     * @return string
      */
-    public function getAvatar()
+    public function getPhotoPath()
     {
-        return $this->avatar;
+        return $this->photoPath;
     }
 
     public function getSalt()

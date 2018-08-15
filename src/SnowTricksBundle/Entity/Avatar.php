@@ -6,12 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Picture
+ * Avatar
  *
- * @ORM\Table(name="picture")
- * @ORM\Entity(repositoryClass="SnowTricksBundle\Repository\PictureRepository")
+ * @ORM\Table(name="avatar")
+ * @ORM\Entity(repositoryClass="SnowTricksBundle\Repository\AvatarRepository")
  */
-class Picture
+class Avatar
 {
     /**
      * @var int
@@ -29,44 +29,29 @@ class Picture
      *
      * @Assert\Image(
      *     maxSize = "1024k",
-     *     minWidth = 200,
-     *     maxWidth = 1200,
-     *     minHeight = 200,
+     *     minWidth = 50,
+     *     maxWidth = 800,
+     *     minHeight = 50,
      *     maxHeight = 800,
-     *     allowPortrait = false
      * )
      */
     private $file;
 
     /**
      * @var string
-     * 
+     *
      * @ORM\Column(name="alt", type="string", length=255)
      */
     private $alt;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created", type="datetimetz")
-     */
-    private $created;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="SnowTricksBundle\Entity\Trick", inversedBy="pictures")
+     * @ORM\OneToOne(targetEntity="SnowTricksBundle\Entity\User", inversedBy="avatar")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $trick;
+    private $user;
 
     private $webPath = NULL;
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->created = new \Datetime("now", new \DateTimeZone('Europe/Paris'));
-    }
 
     /**
      * Get id
@@ -83,7 +68,7 @@ class Picture
      *
      * @param string $file
      *
-     * @return Picture
+     * @return Avatar
      */
     public function setFile($file)
     {
@@ -107,7 +92,7 @@ class Picture
      *
      * @param string $alt
      *
-     * @return Picture
+     * @return Avatar
      */
     public function setAlt($alt)
     {
@@ -131,9 +116,9 @@ class Picture
      *
      * @param \DateTime $created
      *
-     * @return Picture
+     * @return Avatar
      */
-    public function setCreated(\Datetime $created)
+    public function setCreated($created)
     {
         $this->created = $created;
 
@@ -151,27 +136,27 @@ class Picture
     }
 
     /**
-     * Set trick
+     * Set user
      *
-     * @param \SnowTricksBundle\Entity\Trick $trick
+     * @param \SnowTricksBundle\Entity\User $user
      *
-     * @return Picture
+     * @return Avatar
      */
-    public function setTrick(\SnowTricksBundle\Entity\Trick $trick)
+    public function setUser(\SnowTricksBundle\Entity\User $user)
     {
-        $this->trick = $trick;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get trick
+     * Get user
      *
-     * @return \SnowTricksBundle\Entity\Trick
+     * @return \SnowTricksBundle\Entity\User
      */
-    public function getTrick()
+    public function getUser()
     {
-        return $this->trick;
+        return $this->user;
     }
 
     public function getWebPath()

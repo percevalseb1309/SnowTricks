@@ -112,6 +112,13 @@
 		</div>
 		<div class="row">
 			<div class="col-md-10 center-block" style="float:none;">
+				{% if comment.user.avatar is not empty %}
+					<div class="col-md-2">
+						<div class="thumbnail">
+		 					<img src="{{ asset(comment.user.avatar.webPath) }}" alt="{{ comment.user.avatar.alt }}" style="width:100%">
+		 				</div>
+					</div>
+	    		{% endif %}
 				<em>Posted on {{ comment.created|date("F jS\, Y \\a\\t g:ia") }} by {{ comment.user.username|capitalize }}</em>
 			</div>
 		</div>
