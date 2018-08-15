@@ -30,6 +30,9 @@ class UserType extends AbstractType
                 'mapped'      => false,
                 'constraints' => new IsTrue(),
             ))
+            ->add('avatar', AvatarType::class, array(
+                'required' => false,
+            ))
             ->add('submit', SubmitType::class);
     }
 

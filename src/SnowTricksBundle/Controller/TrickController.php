@@ -4,7 +4,6 @@ namespace SnowTricksBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -66,9 +65,7 @@ class TrickController extends Controller
                 $this->denyAccessUnlessGranted('ROLE_AUTHOR', null, 'Limited access to authors.');
             }
             $user = $this->getUser();
-            $comment->setUser($user);
-            $comment->setTrick($trick);
-            $em = $this->getDoctrine()->getManager();
+            $comment->setUser($user)->setTrick($trick);
             $em->persist($comment);
             $em->flush();
 

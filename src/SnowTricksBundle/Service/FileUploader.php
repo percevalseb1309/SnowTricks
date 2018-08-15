@@ -6,10 +6,12 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class FileUploader
 {
+    private $targetWebPath;
     private $targetDirectory;
 
-    public function __construct($targetDirectory)
+    public function __construct($targetWebPath, $targetDirectory)
     {
+        $this->targetWebPath = $targetWebPath;
         $this->targetDirectory = $targetDirectory;
     }
 
@@ -21,6 +23,11 @@ class FileUploader
 
         return $fileName;
     }
+
+    public function getTargetWebPath()
+    {
+        return $this->targetWebPath;
+    }    
 
     public function getTargetDirectory()
     {
