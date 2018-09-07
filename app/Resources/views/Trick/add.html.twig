@@ -4,8 +4,27 @@
 	Add a Trick - {{ parent() }}
 {% endblock %}
 
-{% block body %}
+{% block stylesheets %}
+	{{ parent() }}
+	{# <link rel="stylesheet" type="text/css" href="{{ asset('css/form.css') }}" /> #}
+	{% stylesheets 'css/form.css' filter='?scssphp' %}
+	 	<link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+	{% endstylesheets %}
+{% endblock %}
+
+{% block section %}
 	<h1>Add a Trick</h1>
 
 	{{ include("Trick/form.html.twig") }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	{# <script type="text/javascript" src="{{ asset('js/jquery.collection.js') }}"></script> #}
+	{# <script type="text/javascript" src="{{ asset('js/form.js') }}"></script> #}
+	{% stylesheets filter='?jsqueeze'
+	  	'js/jquery.collection.js'
+	  	'js/form.js' %}
+	  	<script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endstylesheets %}
 {% endblock %}

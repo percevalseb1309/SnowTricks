@@ -1,48 +1,77 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-  Home - {{ parent() }}
+  Tricks - {{ parent() }}
 {% endblock %}
 
-{% block body %}
-	<h1>Home page</h1>
+{% block stylesheets %}
+	{{ parent() }}
+	{# <link rel="stylesheet" type="text/css" href="{{ asset('css/home.css') }}" /> #}
+	{% stylesheets 'css/home.css' filter='?scssphp' %}
+	 	<link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+	{% endstylesheets %}
+{% endblock %}
 
-	{% for row in listTricks|batch(4) %}
-		<div class="row">
-		{% for trick in row %}
-			<div class="col-md-3">
-			  	<div class="thumbnail">
-			    	<a href="{{ path('trick_show', {'slug': trick.slug}) }}">
-			    		{% if trick.pictures is not empty %}
-				      		<img src="{{ asset(trick.pictures|first.webPath) }}" alt="{{ trick.pictures|first.alt }}" style="width:100%">
-				      	{% else %}
-				      		<img src="{{ asset('uploads/pictures/default.jpeg') }}" alt="Image par défaut" style="width:100%">
-			    		{% endif %}
-			    	</a>
-			      	<div class="caption">
-			        	<a href="{{ path('trick_show', {'slug': trick.slug}) }}">{{ trick.name }}</a>
-			        	{% if is_granted('ROLE_AUTHOR') %}
-			        	<div class="pull-right">
-				        	<a href="{{ path('trick_edit', {'slug': trick.slug}) }}"><span class="glyphicon glyphicon-edit"></span></a>
-				        	<a class="delete-trick" data-name="{{ trick.name }}" href="{{ path('trick_delete', {'slug': trick.slug}) }}"><span class="glyphicon glyphicon-trash"></span></a>
-			        	</div>
-			        	{% endif %}
-			      	</div>
-			  	</div>
-			</div>
-		{% endfor %}
+{% block section %}
+	<div id="featured-image" class="row">
+		<div class="col-md-12">
+			<div class="thumbnail">
+				<img src="{{ asset('img/default.jpeg') }}" alt="Image par défaut" style="width:100%">
+				<div class="caption">
+				  	<p>welcome to the snowboard website<br>that talks about awesome and cool snowtricks</p>
+				</div>
+			</div>	
+		</div>	
+	</div>
+
+	<h1>Tricks List</h1>
+
+	<div class="medias row">
+	{% for trick in listTricks %}
+		<div class="col-xs-12 col-sm-6 col-md-3">
+		  	<div class="thumbnail">
+		    	<a href="{{ path('trick_show', {'slug': trick.slug}) }}">
+		    		{% if trick.pictures is not empty %}
+			      		<img src="{{ asset(trick.pictures|first.webPath) }}" alt="{{ trick.pictures|first.alt }}" style="width:100%">
+			      	{% else %}
+			      		<img src="{{ asset('img/default.jpeg') }}" alt="Image par défaut" style="width:100%">
+		    		{% endif %}
+		    	</a>
+		      	<div class="caption">
+		        	<a href="{{ path('trick_show', {'slug': trick.slug}) }}">{{ trick.name }}</a>
+		        	{% if is_granted('ROLE_AUTHOR') %}
+		        	<div class="pull-right">
+			        	<a href="{{ path('trick_edit', {'slug': trick.slug}) }}" title="{{ 'edit ' ~ trick.name|lower }}">
+			        		<span class="glyphicon glyphicon-edit"></span>
+			        	</a>
+			        	<a class="delete-trick" data-name="{{ trick.name }}" href="{{ path('trick_delete', {'slug': trick.slug}) }}" title="{{ 'delete ' ~ trick.name|lower }}">
+			        		<span class="glyphicon glyphicon-trash"></span>
+			        	</a>
+		        	</div>
+		        	{% endif %}
+		      	</div>
+		  	</div>
 		</div>
 	{% endfor %}
+	</div>
 
 	<div class="row text-center">	
 		<ul class="pagination pagination-lg">
-		  	{% for p in range(1, nbPages) %}
-		    	<li{% if p == page %} class="active"{% endif %}>
-		      		<a href="{{ path('trick_list', {'page': p}) }}">{{ p }}</a>
-		    	</li>
-		  	{% endfor %}
+	  	{% for p in range(1, nbPages) %}
+	    	<li{% if p == page %} class="active"{% endif %}>
+	      		<a href="{{ path('trick_list', {'page': p}) }}">{{ p }}</a>
+	    	</li>
+	  	{% endfor %}
 		</ul>
 	</div>
 
 	{{ include("Trick/delete.html.twig") }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	{# <script type="text/javascript" src="{{ asset('js/delete.js') }}"></script> #}
+	{% javascripts 'js/delete.js' filter='?jsqueeze' %}
+	  	<script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
 {% endblock %}

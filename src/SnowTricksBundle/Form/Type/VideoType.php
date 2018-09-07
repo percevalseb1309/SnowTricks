@@ -16,6 +16,7 @@ class VideoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('url', TextType::class, array(
+            // 'image_property' => 'image',
             'attr' => array('placeholder' => 'Paste video URL in the field'),
         ));
     }/**

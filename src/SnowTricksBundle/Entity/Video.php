@@ -59,6 +59,7 @@ class Video
      */
     private $trick;
 
+
     /**
      * Constructor
      */
