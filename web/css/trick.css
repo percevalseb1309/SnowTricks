@@ -1,0 +1,38 @@
+#icons {
+	margin-bottom:5px;
+	margin-right:5px;
+}
+
+.jumbotron {
+	border-radius: initial !important;
+	background-color: initial !important;
+	margin-bottom: initial !important;
+}
+
+hr {
+	border-top: 1px dotted #8c8b8b;
+}
+
+.comments {
+	display: none;
+}
+
+.glyphicon-user, .img-thumbnail {
+	margin-right: 10px;
+	float:left;
+}
+
+.img-thumbnail {
+	max-width:60px;
+	max-height:60px; 
+}
+
+@media screen and (max-width: 576px) {
+	.jumbotron p {
+		font-size: 16px;
+	} 
+
+	p.text-justify {
+		text-align: left;
+	}
+}

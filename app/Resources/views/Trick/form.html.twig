@@ -1,55 +1,59 @@
-<div class="col-md-8 well well-lg">
-
-	{% form_theme form 'Trick/formTheme.html.twig' 'jquery.collection.html.twig' 'fields.html.twig' %}
-
-	{{ form_start(form) }}
-
-	{{ form_errors(form) }}
-
+<div class="col-md-12 well well-lg">
 	<div class="row">
-		<div class="form-group col-md-12">
-			{{ form_row(form.pictures) }}
-		</div>
-	</div>	
+		<div class="col-md-8">
 
-	<div class="row">
-		<div class="form-group col-md-12">
-			{{ form_row(form.videos) }}
+			{% form_theme form 'Trick/formTheme.html.twig' 'jquery.collection.html.twig' 'fields.html.twig' %}
+
+			{{ form_start(form) }}
+
+			{{ form_errors(form) }}
+
+			<div class="row">
+				<div class="form-group col-md-12">
+					{{ form_row(form.pictures) }}
+				</div>
+			</div>	
+
+			<div class="row">
+				<div class="form-group col-md-12">
+					{{ form_row(form.videos) }}
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="form-group col-xs-12 col-sm-6">
+					{{ form_label(form.name, "Trick Name") }}
+					{{ form_errors(form.name) }}
+					{{ form_widget(form.name) }}
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="form-group col-md-12">
+					{{ form_label(form.description, "Trick Description") }}
+					{{ form_errors(form.description) }}
+					{{ form_widget(form.description) }}
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="form-group col-xs-12 col-sm-4">
+					{{ form_label(form.tricksGroup, "Tricks Group") }}
+					{{ form_errors(form.tricksGroup) }}
+					{{ form_widget(form.tricksGroup) }}
+				</div>
+			</div>	
+
+			<div class="row">
+				<div class="form-group col-md-12">
+					{{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary pull-right'}}) }}
+				</div>
+			</div>
+
+			{{ form_rest(form) }}
+
+			{{ form_end(form) }}
+
 		</div>
 	</div>
-
-	<div class="row">
-		<div class="form-group col-md-6">
-			{{ form_label(form.name, "Trick Name") }}
-			{{ form_errors(form.name) }}
-			{{ form_widget(form.name) }}
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="form-group col-md-12">
-			{{ form_label(form.description, "Trick Description") }}
-			{{ form_errors(form.description) }}
-			{{ form_widget(form.description) }}
-		</div>
-	</div>
-	
-	<div class="row">
-		<div class="form-group col-md-4">
-			{{ form_label(form.tricksGroup, "Tricks Group") }}
-			{{ form_errors(form.tricksGroup) }}
-			{{ form_widget(form.tricksGroup) }}
-		</div>
-	</div>	
-
-	<div class="row">
-		<div class="form-group col-md-12">
-			{{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary pull-right'}}) }}
-		</div>
-	</div>
-
-	{{ form_rest(form) }}
-
-	{{ form_end(form) }}
-
 </div>

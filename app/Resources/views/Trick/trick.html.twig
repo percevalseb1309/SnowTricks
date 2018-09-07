@@ -4,43 +4,68 @@
   {{ trick.name }} - {{ parent() }}
 {% endblock %}
 
-{% block body %}
+{% block stylesheets %}
+	{{ parent() }}
+	{# <link rel="stylesheet" type="text/css" href="{{ asset('css/trick.css') }}" /> #}
+	{% stylesheets 'css/trick.css' filter='?scssphp' %}
+	 	<link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+	{% endstylesheets %}
+{% endblock %}
+
+{% block section %}
 	<h1>{{ trick.name|capitalize }}</h1>
 
-	<div class="col-md-8 well well-lg">
+	<div class="col-md-12 well well-lg">
+
+    	{% if is_granted('ROLE_AUTHOR') %}
+    	<div class="row">
+			<div class="col-md-12">
+		    	<div id="icons" class="pull-right">
+		        	<a href="{{ path('trick_edit', {'slug': trick.slug}) }}" title="{{ 'edit ' ~ trick.name|lower }}">
+		        		<span class="glyphicon glyphicon-edit"></span>
+		        	</a>
+		        	<a class="delete-trick" data-name="{{ trick.name }}" href="{{ path('trick_delete', {'slug': trick.slug}) }}" title="{{ 'delete ' ~ trick.name|lower }}">
+		        		<span class="glyphicon glyphicon-trash"></span>
+		        	</a>
+		    	</div>
+    		</div>
+		</div>
+		{{ include("Trick/delete.html.twig") }}
+    	{% endif %}
+
 		<div class="row">
 			<div class="col-md-12">
 				<div class="thumbnail">
 					{% if trick.pictures is empty %}
-			      		<img src="{{ asset('uploads/pictures/default.jpeg') }}" alt="Image par défaut" style="width:100%">
+			      		<img src="{{ asset('img/default.jpeg') }}" alt="Image par défaut" style="width:100%">
 			      	{% else %}
 			 			<img src="{{ asset(trick.pictures|first.webPath) }}" alt="{{ trick.pictures|first.alt }}" style="width:100%">
-			 			{# <img src="{{ asset('uploads/pictures/' ~ trick.pictures|first.file) }}" alt="{{ trick.pictures|first.alt }}" style="width:100%"> #}
 		    		{% endif %}
 			 	</div>
 		 	</div>
 		</div>
 
-		{% if trick.pictures is not empty and trick.pictures|length > 1 %}
-			{% for row in trick.pictures|slice(1)|batch(3) %}
-				<div class="row">
-				{% for picture in row %}
-					<div class="col-md-4">
+		<button type="button" id="see-medias" class="btn btn-default center-block visible-xs">See Medias</button>
+		<div class="row hidden-xs">
+			<div class="col-xs-12 col-sm-6">
+			{% if trick.pictures is not empty and trick.pictures|length > 1 %}
+				<div class="medias row">
+				{% for picture in trick.pictures|slice(1) %}
+					<div class="col-sm-12 col-md-6">
 						<div class="thumbnail">
 							<img src="{{ asset(picture.webPath) }}" alt="{{ picture.alt }}" style="width:100%">
-							{# <img src="{{ asset('uploads/pictures/' ~ picture.file) }}" alt="{{ picture.alt }}" style="width:100%"> #}
 						</div>
 					</div>
 				{% endfor %}
 				</div>
-			{% endfor %}
-		{% endif %}
+			{% endif %}
+			</div>
 
-		{% if trick.videos is not empty %}
-			{% for row in trick.videos|batch(3) %}
-				<div class="row">
-				{% for video in row %}
-					<div class="col-md-4">
+			<div class="col-xs-12 col-sm-6">
+			{% if trick.videos is not empty %}
+				<div class="medias row">
+				{% for video in trick.videos %}
+					<div class="col-sm-12 col-md-6">
 						<div class="thumbnail">
 							{# <img src="{{ video.image() }}" style="width:100%"> #}
 							{{ video.video()|raw }}
@@ -48,82 +73,106 @@
 					</div>
 				{% endfor %}
 				</div>
-			{% endfor %}
+			{% endif %}
+			</div>
+		</div>
+
+		<div class="jumbotron">
+			<div class="row">
+				<div class="col-sm-10 col-sm-offset-1">
+		  			<p class="text-justify">Description&nbsp;:&nbsp;{{ trick.description }}</p>
+		  		</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-8 center-block small text-muted" style="float:none;">
+					<em><strong>Tricks Group : {{ trick.tricksGroup.name }}</strong></em><br>
+					<em>Created on {{ trick.created|date("F jS\, Y \\a\\t g:ia") }}</em>
+					{% if trick.updated is not null %}
+						- <em>Updated on {{ trick.updated|date("F jS\, Y \\a\\t g:ia") }}</em>
+					{% endif %}
+				</div>
+			</div>	
+	  	</div>
+
+
+		{% if is_granted('ROLE_AUTHOR') %}
+		<div class="row">
+			<div class="col-sm-8 col-sm-offset-2">
+				<hr>
+				<div class="row">
+					<div class="col-sm-10 col-sm-offset-1">
+						{{ form_start(form) }}
+
+						{{ form_errors(form) }}
+
+						<div class="row">
+							<div class="form-group col-sm-12">
+								{{ form_errors(form.content) }}
+								{{ form_widget(form.content, {'attr': {'rows': 5}}) }}
+							</div>
+						</div>	
+
+						<div class="row">
+							<div class="form-group col-sm-12">
+								{{ form_widget(form.submit, { 'label': 'Leave a comment', 'attr': {'class': 'btn btn-primary pull-right'}}) }}
+							</div>
+						</div>
+
+						{{ form_rest(form) }}
+
+						{{ form_end(form) }}
+					</div>
+				</div>
+			</div>
+		</div>
 		{% endif %}
 
-		<hr>
-
+		{% if trick.comments is not empty %}
 		<div class="row">
-			<div class="col-md-12">
-	  			<p>{{ trick.description }}</p>
-	  		</div>
-		</div>
-
-		<div class="row">
-			<div class="col-md-10 center-block" style="float:none;">
-				<em><strong>Tricks Group : {{ trick.tricksGroup.name }}</strong></em><br>
-				<em>Created on {{ trick.created|date("F jS\, Y \\a\\t g:ia") }}</em>
-				{% if trick.updated is not null %}
-					- <em>Updated on {{ trick.updated|date("F jS\, Y \\a\\t g:ia") }}</em>
-				{% endif %}
-			</div>
-		</div>
-		
-    	{% if is_granted('ROLE_AUTHOR') %}
-    	<div class="pull-right">
-        	<a href="{{ path('trick_edit', {'slug': trick.slug}) }}"><span class="glyphicon glyphicon-edit"></span></a>
-        	<a class="delete-trick" data-name="{{ trick.name }}" href="{{ path('trick_delete', {'slug': trick.slug}) }}"><span class="glyphicon glyphicon-trash"></span></a>
-    	</div>
-		{{ include("Trick/delete.html.twig") }}
-    	{% endif %}
-
-
-	{% if is_granted('ROLE_AUTHOR') %}
-		<hr>
-		{{ form_start(form) }}
-
-		{{ form_errors(form) }}
-
-		<div class="row">
-			<div class="form-group col-md-12">
-				{{ form_errors(form.content) }}
-				{{ form_widget(form.content, {'attr': {'rows': 5}}) }}
-			</div>
-		</div>	
-
-		<div class="row">
-			<div class="form-group col-md-12">
-				{{ form_widget(form.submit, { 'label': 'Leave a comment', 'attr': {'class': 'btn btn-primary pull-right'}}) }}
-			</div>
-		</div>
-
-		{{ form_rest(form) }}
-
-		{{ form_end(form) }}
-	{% endif %}
-
-	{% if trick.comments is not empty %}
-		<hr>
-		{% for comment in trick.comments|reverse %}
-		<div class="row">
-			<div class="col-md-12">
-				<p>{{ comment.content }}</p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-10 center-block" style="float:none;">
-				{% if comment.user.avatar is not empty %}
-					<div class="col-md-2">
-						<div class="thumbnail">
-		 					<img src="{{ asset(comment.user.avatar.webPath) }}" alt="{{ comment.user.avatar.alt }}" style="width:100%">
-		 				</div>
+			<div class="col-sm-8 col-sm-offset-2">
+				<hr>
+				<div class="row">
+					<div class="col-sm-10 col-sm-offset-1">
+						<div class="panel-group">
+							{% for comment in trick.comments|reverse %}
+							<div class="comments panel panel-default">
+								<div class="panel-body">
+									<div class="row">
+										<div class="col-sm-12">
+											{% if comment.user.avatar is not empty %}
+												<img src="{{ asset(comment.user.avatar.webPath) }}" class="img-thumbnail" alt="{{ comment.user.avatar.alt }}">
+								    		{% else %}
+								    			<span class="glyphicon glyphicon-user"></span>
+								    		{% endif %}
+											<p class="text-justify">{{ comment.content }}</p>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-sm-10 center-block small text-muted" style="float:none;">
+											<em>Posted on {{ comment.created|date("F jS\, Y \\a\\t g:ia") }} by {{ comment.user.username|capitalize }}</em>
+										</div>
+									</div>
+								</div>
+							</div>
+							{% endfor %}
+						</div>
+						<button type="button" id="loadMore" class="btn btn-default center-block">Load more</button>
 					</div>
-	    		{% endif %}
-				<em>Posted on {{ comment.created|date("F jS\, Y \\a\\t g:ia") }} by {{ comment.user.username|capitalize }}</em>
+				</div>
 			</div>
 		</div>
-		{% if not loop.last %}<hr>{% endif %}
-		{% endfor %}
-	{% endif %}
+		{% endif %}
+
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	{# <script type="text/javascript" src="{{ asset('js/delete.js') }}"></script> #}
+	{# <script type="text/javascript" src="{{ asset('js/trick.js') }}"></script> #}
+	{% stylesheets filter='?jsqueeze'
+	  	'js/delete.js'
+	  	'js/trick.js' %}
+	  	<script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endstylesheets %}
 {% endblock %}
