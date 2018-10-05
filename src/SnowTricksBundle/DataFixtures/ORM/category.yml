@@ -1,0 +1,15 @@
+SnowTricksBundle\Entity\TricksGroup:
+    grabs:
+        name: Grabs    
+    rotations:
+        name: Rotations
+    category3:
+        name: Flips
+    category4:
+        name: Rotations désaxées
+    category5:
+        name: Slides
+    category6:
+        name: One foot tricks
+    category7:
+        name: Old school

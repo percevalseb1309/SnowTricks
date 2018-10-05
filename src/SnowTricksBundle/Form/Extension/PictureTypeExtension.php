@@ -11,17 +11,31 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class PictureTypeExtension extends AbstractTypeExtension
 {
+    /**
+     * @access public
+     * @return string
+     */
     public function getExtendedType()
     {
         return FileType::class;
     }
 
+    /**
+     * @access public
+     * @param OptionsResolver $resolver 
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         // makes it legal for FileType fields to have an image_property option
         $resolver->setDefined(array('image_property'));
     }
 
+    /**
+     * @access public
+     * @param FormView $view 
+     * @param FormInterface $form 
+     * @param array $options 
+     */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         if (isset($options['image_property'])) {

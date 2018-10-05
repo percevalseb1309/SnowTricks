@@ -1,0 +1,5 @@
+SnowTricksBundle\Entity\Avatar:
+    user1:
+        file: 9c149ec9976a70fd0396d13a892b52df.jpeg
+        alt: avatar.jpeg 
+        user: '@johndoe'

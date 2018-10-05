@@ -1,0 +1,17 @@
+SnowTricksBundle\Entity\Comment:
+    comment{1..4}:
+        content: <paragraph()>
+        trick: '@mute'
+        user: '@johndoe'
+    comment{5..7}:
+        content: <paragraph()> 
+        trick: '@mute'
+        user: '@user2'    
+    comment{8..9}:
+        content: <paragraph()> 
+        trick: '@mute'
+        user: '@johndoe'
+    comment10:
+        content: <paragraph()> 
+        trick: '@mute'
+        user: '@user2' 

@@ -11,6 +11,11 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 class PictureType extends AbstractType
 {
     /**
+     * @access public
+     * @param FormBuilderInterface $builder 
+     * @param array $options 
+     * @return void
+     * 
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -23,6 +28,10 @@ class PictureType extends AbstractType
     }
 
     /**
+     * @access public
+     * @param OptionsResolver $resolver 
+     * @return void
+     * 
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
@@ -33,6 +42,9 @@ class PictureType extends AbstractType
     }
 
     /**
+     * @access public
+     * @return string
+     * 
      * {@inheritdoc}
      */
     public function getBlockPrefix()

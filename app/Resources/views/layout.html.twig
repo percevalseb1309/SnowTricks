@@ -39,7 +39,7 @@
 				  	</ul>
 				  	<ul class="nav navbar-nav navbar-right">
 			  		{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-			  			<li><a href="#">Welcome {{ app.user.username|capitalize }}</a></li>
+			  			<li><a href="#">Welcome {{ app.user.username }}</a></li>
 			  			<li><a href="{{ path('logout') }}"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>
 			  		{% else %}
 				    	<li><a href="{{ path('user_registration') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;Sign Up</a></li>
