@@ -3,6 +3,7 @@
 namespace SnowTricksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * TricksGroup
@@ -24,7 +25,8 @@ class TricksGroup
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @ORM\Column(name="name", type="string", length=32, unique=true)
+     * @Assert\NotBlank()
      */
     private $name;
 

@@ -17,6 +17,10 @@ use SnowTricksBundle\Form\Type\CommentType;
 class TrickController extends Controller
 {
     /**
+     * @access public
+     * @param string $page 
+     * @return Response
+     *
      * @Route("/{page}", name="trick_list", requirements={"page"="\d+"})
      * @Method({"GET"})
      */
@@ -45,6 +49,11 @@ class TrickController extends Controller
     }  
 
     /**
+     * @access public
+     * @param Request $request 
+     * @param string $slug 
+     * @return Response
+     * 
      * @Route("/trick/{slug}", name="trick_show", requirements={"slug"="[a-z0-9-]{2,}"})
      * @Method({"GET", "POST"})
      */
@@ -80,6 +89,10 @@ class TrickController extends Controller
     } 
 
     /**
+     * @access public
+     * @param Request $request 
+     * @return Response
+     * 
      * @Route("/add", name="trick_add")
      * @Method({"GET", "POST"})
      * @Security("has_role('ROLE_AUTHOR')")
@@ -88,7 +101,7 @@ class TrickController extends Controller
     {
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick);
-
+        
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);
@@ -104,6 +117,11 @@ class TrickController extends Controller
     } 
 
     /**
+     * @access public
+     * @param Request $request 
+     * @param string $slug 
+     * @return Response
+     * 
      * @Route("/edit/{slug}", name="trick_edit", requirements={"slug"="[a-z0-9-]{2,}"})
      * @Method({"GET", "POST"})
      * @Security("has_role('ROLE_AUTHOR')")
@@ -134,6 +152,11 @@ class TrickController extends Controller
     } 
 
     /**
+     * @access public
+     * @param Request $request 
+     * @param string $slug 
+     * @return Response
+     * 
      * @Route("/delete/{slug}", name="trick_delete", requirements={"slug"="[a-z0-9-]{2,}"})
      * @Method({"GET", "POST"})
      * @Security("has_role('ROLE_AUTHOR')")

@@ -15,6 +15,11 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 class TrickType extends AbstractType
 {
     /**
+     * @access public
+     * @param FormBuilderInterface $builder 
+     * @param array $options 
+     * @return void
+     * 
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -58,6 +63,10 @@ class TrickType extends AbstractType
     }
 
     /**
+     * @access public
+     * @param OptionsResolver $resolver 
+     * @return void
+     * 
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
@@ -68,6 +77,9 @@ class TrickType extends AbstractType
     }
 
     /**
+     * @access public
+     * @return string
+     * 
      * {@inheritdoc}
      */
     public function getBlockPrefix()

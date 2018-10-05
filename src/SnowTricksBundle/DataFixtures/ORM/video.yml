@@ -1,0 +1,9 @@
+SnowTricksBundle\Entity\Video:
+    vid1:
+        type: youtube
+        identif: 6z6KBAbM0MY
+        trick: '@mute'
+    vid2:
+        type: youtube
+        identif: es2qiziH4BY
+        trick: '@mute'

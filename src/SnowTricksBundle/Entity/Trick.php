@@ -27,15 +27,18 @@ class Trick
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
-     * @Assert\Length(min=2)
+     * @ORM\Column(name="name", type="string", length=64, unique=true)
+     * @Assert\Length(
+     *     min=2, 
+     *     max=64
+     * )
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="slug", type="string", length=255, unique=true)
+     * @ORM\Column(name="slug", type="string", length=64, unique=true)
      */
     private $slug;
 
@@ -64,6 +67,7 @@ class Trick
     /**
      * @ORM\ManyToOne(targetEntity="SnowTricksBundle\Entity\TricksGroup")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid()
      */
     private $tricksGroup;
 
@@ -358,30 +362,23 @@ class Trick
         return $this->comments;
     }
 
+    /**
+     * @param string $text 
+     * 
+     * @return string
+     */
     static public function slugify($text)
     {
-      // replace non letter or digits by -
-      $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+        $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+        $text = preg_replace('~[^-\w]+~', '', $text);
+        $text = trim($text, '-');
+        $text = preg_replace('~-+~', '-', $text);
+        $text = strtolower($text);
 
-      // transliterate
-      $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
-
-      // remove unwanted characters
-      $text = preg_replace('~[^-\w]+~', '', $text);
-
-      // trim
-      $text = trim($text, '-');
-
-      // remove duplicate -
-      $text = preg_replace('~-+~', '-', $text);
-
-      // lowercase
-      $text = strtolower($text);
-
-      if (empty($text)) {
-        return 'n-a';
-      }
-
-      return $text;
+        if (empty($text)) {
+            return 'n-a';
+        }
+        return $text;
     }
 }

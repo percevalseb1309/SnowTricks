@@ -1,0 +1,45 @@
+SnowTricksBundle\Entity\Picture:
+    pic1:
+        file: 994d92627c5a84f3aeb3da4ccdf7b580.jpeg
+        alt: mute.jpg
+        trick: '@mute'
+    pic2:
+        file: fa68e148a50b1f780d39cb3329f4d776.jpeg
+        alt: mute2.jpg
+        trick: '@mute'
+    pic3:
+        file: d4fb02862c377e46c9ba2ce20117612e.jpeg
+        alt: mute3.jpg
+        trick: '@mute'
+    pic4:
+        file: 9c5bc1931af51a12d829a07ecb37a9cb.jpeg
+        alt: sad.jpg
+        trick: '@sad'
+    pic5:
+        file: 0dbaa9ffd6a8cadaebfc0189a658831d.jpeg
+        alt: indy.jpg
+        trick: '@indy'
+    pic6:
+        file: 3585ece1d69e0fb85d2762317a5a2b36.jpeg
+        alt: stalefish.jpg
+        trick: '@stalefish'
+    pic7:
+        file: 68aaa9b0774c4e6e49ee028545f96e3f.jpeg
+        alt: tail-grab.jpg
+        trick: '@tail-grab'
+    pic8:
+        file: 482f00f1091dec1162ff7e0b00a65717.jpeg
+        alt: nose-grab.jpg
+        trick: '@nose-grab'
+    pic9:
+        file: 03bd31ab79565873669603bb2cf0ebdf.jpeg
+        alt: japan.jpg
+        trick: '@japan'
+    pic10:
+        file: 152b344fc92f5591925b4c44ccaf9c01.jpeg
+        alt: seat-belt.jpg
+        trick: '@seat-belt'
+    pic11:
+        file: 97dc43081454f430b660e2da5a584c83.jpeg
+        alt: truck-driver.jpg
+        trick: '@truck-driver'

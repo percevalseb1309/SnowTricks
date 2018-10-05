@@ -1,6 +1,6 @@
 $('.pictures-collection').collection({
 	min: 0,
-    max: 4,
+    max: 5,
 	// add: '<a href="#" class="collection-add btn btn-default" title="Add picture"><span class="glyphicon glyphicon-plus-sign"></span></a>',
 	add: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign"></span> Add picture</a>',
     // position_field_selector: '.my-position',

@@ -1,0 +1,81 @@
+SnowTricksBundle\Entity\Trick:
+    mute:
+        name: mute
+        description: Saisie de la carre frontside de la planche entre les deux pieds avec la main avant.
+        tricksGroup: '@grabs'
+    sad:
+        name: sad
+        description: Saisie de la carre backside de la planche, entre les deux pieds, avec la main avant.
+        tricksGroup: '@grabs'
+    indy:
+        name: indy
+        description: Saisie de la carre frontside de la planche, entre les deux pieds, avec la main arrière.
+        tricksGroup: '@grabs'  
+    stalefish:
+        name: stalefish
+        description: Saisie de la carre backside de la planche entre les deux pieds avec la main arrière.
+        tricksGroup: '@grabs'
+    tail-grab:
+        name: tail grab
+        description: Saisie de la partie arrière de la planche, avec la main arrière.
+        tricksGroup: '@grabs'
+    nose-grab:
+        name: nose grab
+        description: Saisie de la partie avant de la planche, avec la main avant.
+        tricksGroup: '@grabs'  
+    japan:
+        name: japan
+        description: Saisie de l'avant de la planche, avec la main avant, du côté de la carre frontside.
+        tricksGroup: '@grabs'
+    seat-belt:
+        name: seat belt
+        description: Saisie du carre frontside à l'arrière avec la main avant.
+        tricksGroup: '@grabs'
+    truck-driver:
+        name: truck driver
+        description: Saisie du carre avant et carre arrière avec chaque main (comme tenir un volant de voiture).
+        tricksGroup: '@grabs'  
+    180:
+        name: 180
+        description: Un 180 désigne un demi-tour, soit 180 degrés d'angle.
+        tricksGroup: '@rotations'
+    360:
+        name: 360
+        description: 360, trois six pour un tour complet.
+        tricksGroup: '@rotations'
+    540:
+        name: 540
+        description: 540, cinq quatre pour un tour et demi.
+        tricksGroup: '@rotations'  
+    720:
+        name: 720
+        description: 720, sept deux pour deux tours complets.
+        tricksGroup: '@rotations'
+    900:
+        name: 900
+        description: 900 pour deux tours et demi.
+        tricksGroup: '@rotations'
+    1080:
+        name: 1080
+        description: 1080 ou big foot pour trois tours.
+        tricksGroup: '@rotations'  
+    90:
+        name: 90
+        description: Pour un quart de tour simple.
+        tricksGroup: '@rotations'
+    270:
+        name: 270
+        description: Pour trois quarts de tours.
+        tricksGroup: '@rotations'
+    450:
+        name: 450
+        description: Pour un tour un quart.
+        tricksGroup: '@rotations'  
+    630:
+        name: 630
+        description: Pour un tour trois quarts.
+        tricksGroup: '@rotations'
+    810:
+        name: 810
+        description: Pour deux tours un quart.
+        tricksGroup: '@rotations'

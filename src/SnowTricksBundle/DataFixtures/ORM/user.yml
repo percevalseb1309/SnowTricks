@@ -1,0 +1,9 @@
+SnowTricksBundle\Entity\User:
+    johndoe:
+        username: John-Doe
+        password: $2y$13$ZwQgIxwBb9nehCG.GSx9mu7GP/GfVU8Q28U.y1pTDwEunc52CBLz.
+        email: john.doe@gmail.com    
+    user2:
+        username: <username()>
+        password: userpass
+        email: <email()>

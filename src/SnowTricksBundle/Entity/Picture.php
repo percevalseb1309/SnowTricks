@@ -58,6 +58,9 @@ class Picture
      */
     private $trick;
 
+    /**
+     * @var string
+     */
     private $webPath = NULL;
 
     /**
@@ -174,15 +177,28 @@ class Picture
         return $this->trick;
     }
 
-    public function getWebPath()
-    {
-        return $this->webPath;
-    }
 
+    /**
+     * Set webPath
+     * 
+     * @param string $webPath 
+     * 
+     * @return Picture
+     */
     public function setWebPath($webPath)
     {
         $this->webPath = $webPath;
 
         return $this;
+    }
+
+    /**
+     * Get webPath
+     * 
+     * @return string
+     */
+    public function getWebPath()
+    {
+        return $this->webPath;
     }
 }
