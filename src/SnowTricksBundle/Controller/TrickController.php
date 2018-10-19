@@ -60,7 +60,8 @@ class TrickController extends Controller
     public function trickAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
-        $trick = $em->getRepository(Trick::class)->findOneBySlug($slug);
+        // $trick = $em->getRepository(Trick::class)->findOneBySlug($slug);
+        $trick = $em->getRepository(Trick::class)->getTrickBySlug($slug);
 
         if (null === $trick) {
             throw new NotFoundHttpException("The trick ". $slug ." does not exist.");
@@ -78,7 +79,7 @@ class TrickController extends Controller
             $em->persist($comment);
             $em->flush();
 
-            $this->addFlash('notice', "Your comment has been successfully added.");
+            $this->addFlash('success', "Your comment has been successfully added.");
             return $this->redirectToRoute('trick_show', array('slug' => $trick->getSlug()));
         }
 
@@ -107,7 +108,7 @@ class TrickController extends Controller
             $em->persist($trick);
             $em->flush();
 
-            $this->addFlash('notice', "Your trick has been successfully added.");
+            $this->addFlash('success', "Your trick has been successfully added.");
             return $this->redirectToRoute('trick_show', array('slug' => $trick->getSlug()));
         }
 
@@ -129,7 +130,7 @@ class TrickController extends Controller
     public function editAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
-        $trick = $em->getRepository(Trick::class)->findOneBySlug($slug);
+        $trick = $em->getRepository(Trick::class)->getTrickBySlug($slug);
 
         if (null === $trick) {
             throw new NotFoundHttpException("This trick ". $slug ." doesn't exist !");
@@ -141,7 +142,7 @@ class TrickController extends Controller
             $trick->setUpdated(new \Datetime("now", new \DateTimeZone('Europe/Paris')));
             $em->flush();
 
-            $this->addFlash('notice', "Your trick has been successfully updated.");
+            $this->addFlash('success', "Your trick has been successfully updated.");
             return $this->redirectToRoute('trick_show', array('slug' => $trick->getSlug()));
         }
 
@@ -164,7 +165,7 @@ class TrickController extends Controller
     public function deleteAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
-        $trick = $em->getRepository(Trick::class)->findOneBySlug($slug);
+        $trick = $em->getRepository(Trick::class)->getTrickBySlug($slug);
 
         if (null === $trick) {
             throw new NotFoundHttpException("This trick ". $slug ." doesn't exist !");
@@ -172,14 +173,14 @@ class TrickController extends Controller
 
         $submittedToken = $request->request->get('token');
         if ( ! $this->isCsrfTokenValid('delete-item', $submittedToken)) {
-            $this->addFlash('notice', "The CSRF token is invalid. Please try to repeat the action");
+            $this->addFlash('warning', "The CSRF token is invalid. Please try to repeat the action");
             $referer = $request->headers->get('referer');
             return $this->redirect($referer);
         } 
 
         $em->remove($trick);
         $em->flush();
-        $this->addFlash('notice', "Your trick has been successfully deleted.");
+        $this->addFlash('success', "Your trick has been successfully deleted.");
 
         return $this->redirectToRoute('trick_list');
     }   
