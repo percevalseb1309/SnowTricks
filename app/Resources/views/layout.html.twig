@@ -52,16 +52,18 @@
 	</header>
 	  
 	<section class="container">
-		{% for message in app.session.flashbag.get('notice') %}
+		{% for message in app.session.flashbag.get('success') %}
 		    <div class="alert alert-success alert-dismissible">
 		      	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 		      	<strong>Success!</strong> {{ message }}
 		    </div>
 		{% endfor %}
-		<!-- <div class="alert alert-success alert-dismissible">
-	      	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-	      	<strong>Success!</strong> Your comment has been successfully added.
-	    </div>  -->
+		{% for message in app.session.flashbag.get('warning') %}
+			<div class="alert alert-danger alert-dismissible">
+			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			    <strong>Warning!</strong> {{ message }}
+			</div>
+		{% endfor %}
 		{% block section %}
 		{% endblock %}
 	</section>

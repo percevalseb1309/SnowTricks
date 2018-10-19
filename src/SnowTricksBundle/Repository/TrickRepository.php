@@ -15,11 +15,37 @@ class TrickRepository extends \Doctrine\ORM\EntityRepository
 	public function getTricks($page, $nbPerPage)
 	{
 		$query = $this->createQueryBuilder('t')
+			->leftJoin('t.pictures', 'p')
+			->addSelect('p')
 		  	->getQuery();
 
 		$query->setFirstResult(($page-1) * $nbPerPage)
 			->setMaxResults($nbPerPage);
 
 		return new Paginator($query, true);
+	}	
+
+	public function getTrickBySlug($slug)
+	{
+		$qb = $this->createQueryBuilder('t')
+			->innerJoin('t.tricksGroup', 'tg')
+			// ->leftJoin('t.pictures', 'p')
+			->leftJoin('t.videos', 'v')
+			->leftJoin('t.comments', 'c')
+			->leftJoin('c.user', 'u')
+			->leftJoin('u.avatar', 'a')
+			->addSelect('tg')
+			// ->addSelect('p')
+			->addSelect('v')
+			->addSelect('c')
+			->addSelect('u')
+			->addSelect('a');
+
+		$qb->where('t.slug = :slug')
+			->setParameter('slug', $slug)
+			->orderBy('c.created', 'DESC')
+			->addOrderBy('c.id', 'DESC');
+
+		return $qb->getQuery()->getOneOrNullResult();
 	}
 }

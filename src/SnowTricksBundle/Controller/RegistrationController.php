@@ -39,7 +39,7 @@ class RegistrationController extends Controller
             $tokenStorage->setToken($token);
             $session->set('_security_main', serialize($token));
 
-            $this->addFlash('notice', 'You are now successfully registered !');
+            $this->addFlash('success', 'You are now successfully registered !');
 
             return $this->redirectToRoute('trick_list');
         }

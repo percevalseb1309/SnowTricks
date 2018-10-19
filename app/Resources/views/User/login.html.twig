@@ -1,7 +1,7 @@
 {% extends "layout.html.twig" %}
 
 {% block stylesheets %}
-    {{ parent() }}
+    Login - {{ parent() }}
     {# <link rel="stylesheet" type="text/css" href="{{ asset('css/form.css') }}" /> #}
     {% stylesheets 'css/form.css' filter='?scssphp' %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
@@ -35,6 +35,12 @@
                         <div class="form-group col-xs-12 col-sm-6">
                             <label class="control-label required" for="password">Password</label>
                             <input type="password" id="password" name="_password" required="required" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="row text-center">
+                        <div class="form-group col-xs-12 col-sm-6">
+                            <a href="{{ path('resetPassword') }}" >Forgot Password ?</a>
                         </div>
                     </div>
 
