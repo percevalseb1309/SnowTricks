@@ -20,7 +20,7 @@ class ForgotPasswordType extends AbstractType
         $builder->add('login', TextType::class, array(
            'constraints' => array(
                 new NotBlank(),
-                new Length(array('min' => 2, 'max' => 64)),
+                new Length(array('min' => 2, 'max' => 255)),
             )
         ))
         ->add('submit', SubmitType::class);

@@ -10,15 +10,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-use SnowTricksBundle\Form\Type\ForgotPasswordType;
-
 use SnowTricksBundle\Entity\User;
-use SnowTricksBundle\Form\Type\UserType;
+use SnowTricksBundle\Service\Mailer;
+use SnowTricksBundle\Form\Type\ForgotPasswordType;
 use SnowTricksBundle\Form\Type\ResetPasswordType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
+
 
 class SecurityController extends Controller
 {
@@ -41,7 +37,7 @@ class SecurityController extends Controller
      * @Route("/forgot_password", name="forgot_password")
      * @Method({"GET", "POST"})
      */
-    public function forgotPasswordAction(Request $request, \Swift_Mailer $mailer)
+    public function forgotPasswordAction(Request $request, Mailer $mailer)
     {
         $form = $this->createForm(ForgotPasswordType::class);
 
@@ -58,21 +54,7 @@ class SecurityController extends Controller
                 $em->persist($user);
                 $em->flush();
 
-                $message = (new \Swift_Message('Snowtricks website : Reset your password !'))
-                    ->setFrom([$this->getParameter('mailer_user') => 'SnowTricks'])
-                    ->setTo([$user->getEmail() => $user->getUsername()])
-                    ->setBody(
-                        $this->renderView(
-                            'Email/reset-password.html.twig',
-                            array(
-                                'username' => $user->getUsername(),
-                                'token'    => $token
-                            )
-                        ),
-                        'text/html'
-                    );
-
-                $mailer->send($message);
+                $mailer->sendMessage($user, $token);
 
                 $this->addFlash('success', "A password reset email has been sent to you.");
                 return $this->redirectToRoute('forgot_password');
