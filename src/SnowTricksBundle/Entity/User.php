@@ -67,6 +67,13 @@ class User implements UserInterface, \Serializable
     private $password;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="token", type="string", length=255, nullable=true)
+     */
+    private $token = NULL;
+
+    /**
      * @var array
      *
      * @ORM\Column(name="roles", type="array")
@@ -78,6 +85,7 @@ class User implements UserInterface, \Serializable
      * @Assert\Valid()
      */
     private $avatar;  
+
 
     /**
      * Constructor
@@ -177,6 +185,30 @@ class User implements UserInterface, \Serializable
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * Set token
+     *
+     * @param string $token
+     *
+     * @return User
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * Get token
+     *
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
     }
 
     /**

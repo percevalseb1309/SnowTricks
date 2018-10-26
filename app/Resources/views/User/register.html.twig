@@ -1,7 +1,11 @@
 {% extends "layout.html.twig" %}
 
+{% block title %}
+  Sign Up - {{ parent() }}
+{% endblock %}
+
 {% block stylesheets %}
-	Sign Up - {{ parent() }}
+	{{ parent() }}
 	{# <link rel="stylesheet" type="text/css" href="{{ asset('css/form.css') }}" /> #}
 	{% stylesheets 'css/form.css' filter='?scssphp' %}
 	 	<link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
