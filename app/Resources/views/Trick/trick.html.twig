@@ -1,7 +1,7 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-  {{ trick.name }} - {{ parent() }}
+  {{ trick.name|capitalize }} - {{ parent() }}
 {% endblock %}
 
 {% block stylesheets %}
