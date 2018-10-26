@@ -14,6 +14,8 @@ services:
         # this means you cannot fetch services directly from the container via $container->get()
         # if you need to do this, you can override this setting on individual services
         public: false
+        bind:
+            $mailer_user: '%mailer_user%'
 
     SnowTricksBundle\Controller\RegistrationController:
         autowire: true
@@ -36,3 +38,8 @@ services:
         arguments:
             $targetWebPath: '%pictures_web_path%'
             $targetDirectory: '%pictures_directory%'
+
+    SnowTricksBundle\Service\Mailer:
+        arguments:
+            $templating: '@twig'
+            $mailer: '@mailer'
