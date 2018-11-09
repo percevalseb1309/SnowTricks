@@ -53,6 +53,4 @@ class UserType extends AbstractType
     {
         return 'snowtricksbundle_user';
     }
-
-
 }

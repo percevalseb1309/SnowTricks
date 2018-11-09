@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\File\File;
 class FileUploadSubscriber implements EventSubscriber
 {
     /**
-     * 
+     *
      * @var FileUploader
      * @access private
      */
@@ -22,7 +22,7 @@ class FileUploadSubscriber implements EventSubscriber
 
     /**
      * @access public
-     * @param FileUploader $uploader 
+     * @param FileUploader $uploader
      * @return void
      */
     public function __construct(FileUploader $uploader)
@@ -46,14 +46,14 @@ class FileUploadSubscriber implements EventSubscriber
 
     /**
      * @access public
-     * @param LifecycleEventArgs $args 
+     * @param LifecycleEventArgs $args
      * @return void
      */
     public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
 
-        if ( ! $entity instanceof Picture && ! $entity instanceof Avatar) {
+        if (! $entity instanceof Picture && ! $entity instanceof Avatar) {
             return;
         }
 
@@ -62,14 +62,14 @@ class FileUploadSubscriber implements EventSubscriber
 
     /**
      * @access public
-     * @param PreUpdateEventArgs $args 
+     * @param PreUpdateEventArgs $args
      * @return void
      */
     public function preUpdate(PreUpdateEventArgs $args)
     {
         $entity = $args->getEntity();
 
-        if ( ! $entity instanceof Picture) {
+        if (! $entity instanceof Picture) {
             return;
         }
 
@@ -77,32 +77,31 @@ class FileUploadSubscriber implements EventSubscriber
 
         $previousFilename = null;
 
-        if(array_key_exists("file", $changes)){
+        if (array_key_exists("file", $changes)) {
             $previousFilename = $changes["file"][0];
         }
 
-        if(is_null($entity->getFile())){
+        if (is_null($entity->getFile())) {
             $entity->setFile($previousFilename);
-        } 
-        else {
-            if( ! is_null($previousFilename)){
+        } else {
+            if (! is_null($previousFilename)) {
                 $pathPreviousFile = $this->uploader->getTargetDirectory(). "/". $previousFilename;
-                if(file_exists($pathPreviousFile)){
+                if (file_exists($pathPreviousFile)) {
                     unlink($pathPreviousFile);
                 }
             }
             $this->uploadFile($entity);
         }
-    } 
+    }
 
     /**
      * @access public
-     * @param Picture|Avatar $entity 
+     * @param Picture|Avatar $entity
      * @return void
      */
     private function uploadFile($entity)
     {
-        if ( ! $entity instanceof Picture && ! $entity instanceof Avatar) {
+        if (! $entity instanceof Picture && ! $entity instanceof Avatar) {
             return;
         }
 
@@ -118,32 +117,32 @@ class FileUploadSubscriber implements EventSubscriber
 
     /**
      * @access public
-     * @param LifecycleEventArgs $args 
+     * @param LifecycleEventArgs $args
      * @return void
      */
     public function preRemove(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
 
-        if ( ! $entity instanceof Picture && ! $entity instanceof Avatar) {
+        if (! $entity instanceof Picture && ! $entity instanceof Avatar) {
             return;
         }
 
         if (file_exists($entity->getFile())) {
             unlink($entity->getFile());
         }
-    }  
+    }
 
     /**
      * @access public
-     * @param LifecycleEventArgs $args 
+     * @param LifecycleEventArgs $args
      * @return void
      */
     public function postLoad(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
 
-        if ( ! $entity instanceof Picture && ! $entity instanceof Avatar) {
+        if (! $entity instanceof Picture && ! $entity instanceof Avatar) {
             return;
         }
 

@@ -42,7 +42,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(name="username", type="string", length=64, unique=true)
      * @Assert\NotBlank()
      * @Assert\Length(
-     *     min=2, 
+     *     min=2,
      *     max=64
      * )
      */
@@ -71,7 +71,7 @@ class User implements UserInterface, \Serializable
      *
      * @ORM\Column(name="token", type="string", length=255, nullable=true)
      */
-    private $token = NULL;
+    private $token = null;
 
     /**
      * @var array
@@ -84,7 +84,7 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToOne(targetEntity="SnowTricksBundle\Entity\Avatar", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      */
-    private $avatar;  
+    private $avatar;
 
 
     /**
@@ -281,7 +281,7 @@ class User implements UserInterface, \Serializable
 
     public function unserialize($serialized)
     {
-        list (
+        list(
             $this->id,
             $this->username,
             $this->password,

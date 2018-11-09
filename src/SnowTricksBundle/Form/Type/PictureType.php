@@ -12,10 +12,10 @@ class PictureType extends AbstractType
 {
     /**
      * @access public
-     * @param FormBuilderInterface $builder 
-     * @param array $options 
+     * @param FormBuilderInterface $builder
+     * @param array $options
      * @return void
-     * 
+     *
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -29,9 +29,9 @@ class PictureType extends AbstractType
 
     /**
      * @access public
-     * @param OptionsResolver $resolver 
+     * @param OptionsResolver $resolver
      * @return void
-     * 
+     *
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
@@ -44,7 +44,7 @@ class PictureType extends AbstractType
     /**
      * @access public
      * @return string
-     * 
+     *
      * {@inheritdoc}
      */
     public function getBlockPrefix()

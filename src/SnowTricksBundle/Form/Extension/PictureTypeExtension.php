@@ -22,7 +22,7 @@ class PictureTypeExtension extends AbstractTypeExtension
 
     /**
      * @access public
-     * @param OptionsResolver $resolver 
+     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -32,9 +32,9 @@ class PictureTypeExtension extends AbstractTypeExtension
 
     /**
      * @access public
-     * @param FormView $view 
-     * @param FormInterface $form 
-     * @param array $options 
+     * @param FormView $view
+     * @param FormInterface $form
+     * @param array $options
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
@@ -52,5 +52,4 @@ class PictureTypeExtension extends AbstractTypeExtension
             $view->vars['image_url'] = $imageUrl;
         }
     }
-
 }

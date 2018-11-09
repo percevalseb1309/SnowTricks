@@ -7,14 +7,14 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class FileUploader
 {
     /**
-     * 
+     *
      * @var string
      * @access private
      */
     private $targetWebPath;
     
     /**
-     * 
+     *
      * @var string
      * @access private
      */
@@ -32,7 +32,7 @@ class FileUploader
 
     /**
      * @access public
-     * @param UploadedFile $file 
+     * @param UploadedFile $file
      * @return string
      */
     public function upload(UploadedFile $file)
@@ -51,7 +51,7 @@ class FileUploader
     public function getTargetWebPath()
     {
         return $this->targetWebPath;
-    }    
+    }
 
     /**
      * @access public

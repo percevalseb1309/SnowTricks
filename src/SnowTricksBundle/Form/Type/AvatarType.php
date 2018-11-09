@@ -38,6 +38,4 @@ class AvatarType extends AbstractType
     {
         return 'snowtricksbundle_avatar';
     }
-
-
 }
