@@ -40,7 +40,7 @@ class Picture
 
     /**
      * @var string
-     * 
+     *
      * @ORM\Column(name="alt", type="string", length=255)
      */
     private $alt;
@@ -61,7 +61,7 @@ class Picture
     /**
      * @var string
      */
-    private $webPath = NULL;
+    private $webPath = null;
 
     /**
      * Constructor
@@ -180,9 +180,9 @@ class Picture
 
     /**
      * Set webPath
-     * 
-     * @param string $webPath 
-     * 
+     *
+     * @param string $webPath
+     *
      * @return Picture
      */
     public function setWebPath($webPath)
@@ -194,7 +194,7 @@ class Picture
 
     /**
      * Get webPath
-     * 
+     *
      * @return string
      */
     public function getWebPath()

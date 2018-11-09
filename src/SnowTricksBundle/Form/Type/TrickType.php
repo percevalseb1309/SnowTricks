@@ -16,10 +16,10 @@ class TrickType extends AbstractType
 {
     /**
      * @access public
-     * @param FormBuilderInterface $builder 
-     * @param array $options 
+     * @param FormBuilderInterface $builder
+     * @param array $options
      * @return void
-     * 
+     *
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -47,7 +47,7 @@ class TrickType extends AbstractType
             'attr'         => array('class' => 'videos-collection'),
         ))
         ->add('name', TextType::class)
-        ->add('description',TextareaType::class, array(
+        ->add('description', TextareaType::class, array(
             'attr' => ['rows' => '5'],
         ))
         ->add('tricksGroup', EntityType::class, array(
@@ -64,9 +64,9 @@ class TrickType extends AbstractType
 
     /**
      * @access public
-     * @param OptionsResolver $resolver 
+     * @param OptionsResolver $resolver
      * @return void
-     * 
+     *
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
@@ -79,7 +79,7 @@ class TrickType extends AbstractType
     /**
      * @access public
      * @return string
-     * 
+     *
      * {@inheritdoc}
      */
     public function getBlockPrefix()

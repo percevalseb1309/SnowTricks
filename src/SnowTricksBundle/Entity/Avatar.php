@@ -50,7 +50,7 @@ class Avatar
      */
     private $user;
 
-    private $webPath = NULL;
+    private $webPath = null;
 
 
     /**

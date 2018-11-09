@@ -18,7 +18,7 @@ class TrickController extends Controller
 {
     /**
      * @access public
-     * @param string $page 
+     * @param string $page
      * @return Response
      *
      * @Route("/{page}", name="trick_list", requirements={"page"="\d+"})
@@ -46,14 +46,14 @@ class TrickController extends Controller
             'nbPages'    => $nbPages,
             'page'       => $page,
         ));
-    }  
+    }
 
     /**
      * @access public
-     * @param Request $request 
-     * @param string $slug 
+     * @param Request $request
+     * @param string $slug
      * @return Response
-     * 
+     *
      * @Route("/trick/{slug}", name="trick_show", requirements={"slug"="[a-z0-9-]{2,}"})
      * @Method({"GET", "POST"})
      */
@@ -71,7 +71,7 @@ class TrickController extends Controller
         $form = $this->createForm(CommentType::class, $comment);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            if ( ! $this->isGranted('ROLE_AUTHOR')) {
+            if (! $this->isGranted('ROLE_AUTHOR')) {
                 $this->denyAccessUnlessGranted('ROLE_AUTHOR', null, 'Limited access to authors.');
             }
             $user = $this->getUser();
@@ -87,13 +87,13 @@ class TrickController extends Controller
             'trick' => $trick,
             'form'  => $form->createView(),
         ));
-    } 
+    }
 
     /**
      * @access public
-     * @param Request $request 
+     * @param Request $request
      * @return Response
-     * 
+     *
      * @Route("/add", name="trick_add")
      * @Method({"GET", "POST"})
      * @Security("has_role('ROLE_AUTHOR')")
@@ -113,16 +113,16 @@ class TrickController extends Controller
         }
 
         return $this->render('Trick/add.html.twig', array(
-        	'form' => $form->createView(),
+            'form' => $form->createView(),
         ));
-    } 
+    }
 
     /**
      * @access public
-     * @param Request $request 
-     * @param string $slug 
+     * @param Request $request
+     * @param string $slug
      * @return Response
-     * 
+     *
      * @Route("/edit/{slug}", name="trick_edit", requirements={"slug"="[a-z0-9-]{2,}"})
      * @Method({"GET", "POST"})
      * @Security("has_role('ROLE_AUTHOR')")
@@ -150,14 +150,14 @@ class TrickController extends Controller
             'trick' => $trick,
             'form'  => $form->createView(),
         ));
-    } 
+    }
 
     /**
      * @access public
-     * @param Request $request 
-     * @param string $slug 
+     * @param Request $request
+     * @param string $slug
      * @return Response
-     * 
+     *
      * @Route("/delete/{slug}", name="trick_delete", requirements={"slug"="[a-z0-9-]{2,}"})
      * @Method({"GET", "POST"})
      * @Security("has_role('ROLE_AUTHOR')")
@@ -172,16 +172,16 @@ class TrickController extends Controller
         }
 
         $submittedToken = $request->request->get('token');
-        if ( ! $this->isCsrfTokenValid('delete-item', $submittedToken)) {
+        if (! $this->isCsrfTokenValid('delete-item', $submittedToken)) {
             $this->addFlash('warning', "The CSRF token is invalid. Please try to repeat the action");
             $referer = $request->headers->get('referer');
             return $this->redirect($referer);
-        } 
+        }
 
         $em->remove($trick);
         $em->flush();
         $this->addFlash('success', "Your trick has been successfully deleted.");
 
         return $this->redirectToRoute('trick_list');
-    }   
+    }
 }

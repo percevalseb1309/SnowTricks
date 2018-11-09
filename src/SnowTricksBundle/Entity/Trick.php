@@ -29,7 +29,7 @@ class Trick
      *
      * @ORM\Column(name="name", type="string", length=64, unique=true)
      * @Assert\Length(
-     *     min=2, 
+     *     min=2,
      *     max=64
      * )
      */
@@ -75,13 +75,13 @@ class Trick
      * @ORM\OneToMany(targetEntity="SnowTricksBundle\Entity\Picture", mappedBy="trick", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      */
-    private $pictures;     
+    private $pictures;
 
     /**
      * @ORM\OneToMany(targetEntity="SnowTricksBundle\Entity\Video", mappedBy="trick", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      */
-    private $videos; 
+    private $videos;
 
     /**
      * @ORM\OneToMany(targetEntity="SnowTricksBundle\Entity\Comment", mappedBy="trick", cascade={"persist", "remove"})
@@ -98,7 +98,7 @@ class Trick
         $this->pictures = new \Doctrine\Common\Collections\ArrayCollection();
         $this->videos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
-    } 
+    }
 
     /**
      * Get id
@@ -363,11 +363,11 @@ class Trick
     }
 
     /**
-     * @param string $text 
-     * 
+     * @param string $text
+     *
      * @return string
      */
-    static public function slugify($text)
+    public static function slugify($text)
     {
         $text = preg_replace('~[^\pL\d]+~u', '-', $text);
         $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);

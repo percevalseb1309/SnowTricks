@@ -15,7 +15,6 @@ use SnowTricksBundle\Service\Mailer;
 use SnowTricksBundle\Form\Type\ForgotPasswordType;
 use SnowTricksBundle\Form\Type\ResetPasswordType;
 
-
 class SecurityController extends Controller
 {
     /**
@@ -87,7 +86,7 @@ class SecurityController extends Controller
                     $user->setPlainPassword($plainPassword);
                     $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
                     $user->setPassword($password);
-                    $user->setToken(NULL);
+                    $user->setToken(null);
                     $em->flush();
 
                     $this->addFlash('success', 'Your password has been reset successfully');

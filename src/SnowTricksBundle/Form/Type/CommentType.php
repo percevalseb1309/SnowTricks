@@ -36,6 +36,4 @@ class CommentType extends AbstractType
     {
         return 'snowtricksbundle_comment';
     }
-
-
 }
