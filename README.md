@@ -1,6 +1,8 @@
 Symfony Standard Edition
 ========================
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ef00a0921b8a46d496019332673e0336)](https://app.codacy.com/app/percevalseb1309/SnowTricks?utm_source=github.com&utm_medium=referral&utm_content=percevalseb1309/SnowTricks&utm_campaign=Badge_Grade_Settings)
+
 **WARNING**: This distribution does not support Symfony 4. See the
 [Installing & Setting up the Symfony Framework][15] page to find a replacement
 that fits you best.
