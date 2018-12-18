@@ -77,3 +77,21 @@ Enjoy!
 [13]: https://symfony.com/doc/current/bundles/SensioGeneratorBundle/index.html
 [14]: https://symfony.com/doc/current/setup/built_in_web_server.html
 [15]: https://symfony.com/doc/current/setup.html
+
+Installation
+--------------
+
+1. Clone or download this repository in your project folder.
+
+2. In the folder app/config, rename the file parameters.yml.dist by parameters.yml and fill it with your database's and mail's credentials. 
+
+3. From the root directory, open a new terminal window and run the next command lines to install the database structure, tables and datas :
+  php bin/console doctrine:database:create
+  php bin/console doctrine:schema:update  --dump-sql
+  php bin/console hautelook:fixtures:load
+
+4. Install all the project dependencies by running the next command line on your terminal :
+  composer install
+
+5. Load the compiled css and js files in the prod environment by running the next command line on your terminal :
+  php bin/console assetic:dump --env=prod
