@@ -78,9 +78,12 @@ Enjoy!
 [14]: https://symfony.com/doc/current/setup/built_in_web_server.html
 [15]: https://symfony.com/doc/current/setup.html
 
+-----------------
+
 # SnowTricks
 
-__OpenClassrooms project :__ Develop from A to Z the SnowTricks Community Site 
+__OpenClassrooms project :__ Develop from A to Z the SnowTricks Community Site   
+![Snowboard](https://thumbor-static.factorymedia.com/OJxibllyrCCWLL62lW_o5YSaFYk=/620x413/smart/http%3A%2F%2Fcdn.coresites.factorymedia.com%2Fwhitelines_new%2Fwp-content%2Fuploads%2F2012%2F12%2Ffrontflipknuckle-620x413.jpg)
 
 ## Installation
 
