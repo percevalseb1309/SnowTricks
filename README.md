@@ -61,6 +61,7 @@ L’ensemble des figures de snowboard doivent être présentes à l’initialisa
 Symfony Standard Edition
 ========================
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/30594617ff35487ebb6e424cb3e88741)](https://app.codacy.com/app/percevalseb1309/SnowTricks?utm_source=github.com&utm_medium=referral&utm_content=percevalseb1309/SnowTricks&utm_campaign=Badge_Grade_Dashboard)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ef00a0921b8a46d496019332673e0336)](https://app.codacy.com/app/percevalseb1309/SnowTricks?utm_source=github.com&utm_medium=referral&utm_content=percevalseb1309/SnowTricks&utm_campaign=Badge_Grade_Settings)
 
 **WARNING**: This distribution does not support Symfony 4. See the
