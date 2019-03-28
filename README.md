@@ -2,7 +2,7 @@
 
 __OpenClassrooms project :__ Develop from A to Z the SnowTricks Community Site  
   
-![Snowtrick](https://github.com/percevalseb1309/SnowTricks/blob/master/web/img/default.jpeg)
+![Snowtrick](web/img/default.jpeg)
 
 ## Installation
 
